@@ -1,7 +1,7 @@
 from config.botConfig import bot, dp
 # from selectLanguageHandler import selectLanguageRouter
 from config.loggingConfig import logger
-from startMenuHandler import startMenuRouter
+from handlers.startMenuHandler import startMenuRouter
 
 dp.include_router(startMenuRouter)
 

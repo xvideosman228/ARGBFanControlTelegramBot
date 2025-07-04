@@ -8,10 +8,10 @@ from stateMachine import StateMachine
 from config.loggingConfig import exception, logger
 import json
 
-with open('config/buttons.json') as file:
+with open('./config/buttons.json') as file:
     names = json.load(file)
 
-with open('config/texts.json') as file:
+with open('./config/texts.json') as file:
     texts = json.load(file)
 
 startStates = (StateMachine.FAN_CONFIG, StateMachine.ABOUT)
