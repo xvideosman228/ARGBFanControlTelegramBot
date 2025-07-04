@@ -1,5 +1,31 @@
 {
-  "button1": "Button 1",
-  "button2": "Button 2",
-  "back": "⬅\uFE0F Назад"
+  "fanConfig": "*\uFE0F⃣ Настроить кулера",
+  "about": "ℹ\uFE0F О создателе",
+  "back": "⬅\uFE0F Назад",
+  "fans":
+  {
+    "preinstalled": "#\uFE0F⃣ Предустановленные пресеты",
+    "colors": "⬜\uFE0F Цвета"
+  },
+  "colors":
+  {
+    "basicColors":
+    {
+      "red": "\uD83D\uDD34",
+      "green": "\uD83D\uDF00",
+      "blue": "\uD83D\uDD35"
+    }
+  },
+  "preinstalled":
+  {
+    "fadeinout": "плавное появление и затухание",
+    "strobe": "моргание",
+    "cylon": "cylon (хер знает что это)",
+    "twinkle": "мерцание",
+    "runninglights": "свет бежит",
+    "colorwipe": "color wipe",
+    "rainbow": "плавная радуга",
+    "fire": "\uD83D\uDD25 огонь",
+    "ocean": "\uD83C\uDF0A океан"
+  }
 }

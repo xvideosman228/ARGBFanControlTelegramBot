@@ -12,10 +12,12 @@ Back = partial(Key, text='⬅️ Назад')
 
 
 startKeyboard = ReplyKeyboard(keyboard=[
-        [Key(text=names['button1']), Key(text=names['button2'])]
-    ])
+        [Key(text=names['fanConfig'])], [Key(text=names['about'])]])
+
+fanConfigKeyboard = ReplyKeyboard(keyboard=[
+        [Key(text=names['fans']['preinstalled'])], [Key(text=names['fans']['colors'])], [Back()]])
+
 
 backKeyboard = ReplyKeyboard(keyboard=[
-        [Back()]
-    ])
+        [Back()]])
 
