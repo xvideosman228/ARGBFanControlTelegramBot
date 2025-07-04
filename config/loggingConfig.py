@@ -2,7 +2,7 @@ import logging.config
 import json
 from functools import wraps
 
-with open('config/loggerConfig.json') as conf:
+with open('./config/loggerConfig.json') as conf:
     logConfig = json.load(conf)
 
 
