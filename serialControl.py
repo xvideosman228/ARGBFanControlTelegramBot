@@ -1,14 +1,21 @@
-# Importing Libraries 
-import serial 
-import time 
-arduino = serial.Serial(port='/dev/ttyACM1', baudrate=115200, timeout=.1)
-def write_read(x): 
-    arduino.write(bytes(x, 'utf-8'))
-    time.sleep(0.05)
-    data = arduino.readline()
-    return data
+import serial
+import json
+import time
+from config.loggingConfig import logger
 
-while True: 
-    num = input("Enter a number: ") # Taking input from user 
-    value = write_read(num) 
-    print(value) # printing the value 
+# Загрузка конфигурации
+with open('./config/arduino.json') as file:
+    conf = json.load(file)
+
+# Подключение к Arduino
+arduino = serial.Serial(port=conf['port'], baudrate=conf['baudrate'], timeout=conf['timeout'])
+
+def button1():
+    logger.info("Отправлен сигнал 1 на Arduino")
+    arduino.write(b'A')
+    time.sleep(1) # Пауза в секунду после отправки сигнала
+
+def button2():
+    logger.info("Отправлен сигнал 2 на Arduino")
+    arduino.write(b'B')
+    time.sleep(1) # Пауза в секунду после отправки сигнала
