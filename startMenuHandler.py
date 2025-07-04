@@ -7,6 +7,7 @@ from keyboard import startKeyboard, backKeyboard
 from stateMachine import StateMachine
 from config.loggingConfig import exception, logger
 import json
+from serialControl import button1, button2
 
 with open('config/buttons.json') as file:
     names = json.load(file)
@@ -23,22 +24,24 @@ async def start(message: Message, state: FSMContext):
 
 @exception
 @startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["button1"])
-async def button1(message: Message, state: FSMContext):
-    logger.info("Button 1")
+async def b1(message: Message, state: FSMContext):
+    logger.info("Кнопка 1")
+    button1()
     await state.set_state(StateMachine.STATE1)
     await message.answer(f"button1", reply_markup=backKeyboard)
 
 @exception
 @startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["button2"])
-async def button2(message: Message, state: FSMContext):
-    logger.info("Button 2")
+async def b2(message: Message, state: FSMContext):
+    logger.info("Кнопка 2")
+    button2()
     await state.set_state(StateMachine.STATE2)
     await message.answer(f"button2", reply_markup=backKeyboard)
 
 @exception
 @startMenuRouter.message(or_f(*startStates), F.text == names["back"])
 async def back(message: Message, state: FSMContext):
-    logger.info("Back to Start")
+    logger.info("Назад в стартовое меню")
     await state.set_state(StateMachine.START)
     await message.answer(f"Back", reply_markup=startKeyboard)
 

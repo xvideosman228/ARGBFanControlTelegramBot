@@ -6,7 +6,7 @@ from startMenuHandler import startMenuRouter
 dp.include_router(startMenuRouter)
 
 if __name__ == '__main__':
-    logger.info("Polling has started!")
+    logger.info("Бот запущен!")
     dp.run_polling(bot)
-    logger.info("Polling has stopped!")
+    logger.info("Бот остановлен!")
 
