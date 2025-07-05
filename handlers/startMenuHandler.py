@@ -6,6 +6,7 @@ from aiogram.types import Message
 from keyboard import startKeyboard, backKeyboard
 from stateMachine import StateMachine
 from config.loggingConfig import exception, logger
+from functools import wraps
 import json
 
 with open('./config/buttons.json') as file:
@@ -79,14 +80,74 @@ async def brightnessminusminus(message: Message):
     logger.info("Кнопка Brightness -- нажата")
     await message.answer(texts["brightness--"])
 
+@exception
+@startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["colors"]["basicColors"]["red"])
+async def red(message: Message):
+    logger.info("Кнопка Red нажата")
+    await message.answer(texts["red"])
 
 
+@exception
+@startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["colors"]["basicColors"]["green"])
+async def green(message: Message):
+    logger.info("Кнопка Green нажата")
+    await message.answer(texts["green"])
 
 
+@exception
+@startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["colors"]["basicColors"]["blue"])
+async def blue(message: Message):
+    logger.info("Кнопка Blue нажата")
+    await message.answer(texts["blue"])
 
 
+@exception
+@startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["colors"]["basicColors"]["yellow"])
+async def yellow(message: Message):
+    logger.info("Кнопка Yellow нажата")
+    await message.answer(texts["yellow"])
 
 
+@exception
+@startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["colors"]["basicColors"]["orange"])
+async def orange(message: Message):
+    logger.info("Кнопка Orange нажата")
+    await message.answer(texts["orange"])
+
+
+@exception
+@startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["colors"]["basicColors"]["lightblue"])
+async def lightblue(message: Message):
+    logger.info("Кнопка Lightblue нажата")
+    await message.answer(texts["lightblue"])
+
+
+@exception
+@startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["colors"]["basicColors"]["darkblue"])
+async def darkblue(message: Message):
+    logger.info("Кнопка Darkblue нажата")
+    await message.answer(texts["darkblue"])
+
+
+@exception
+@startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["colors"]["basicColors"]["violet"])
+async def violet(message: Message):
+    logger.info("Кнопка Violet нажата")
+    await message.answer(texts["violet"])
+
+
+@exception
+@startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["colors"]["basicColors"]["white"])
+async def white(message: Message):
+    logger.info("Кнопка White нажата")
+    await message.answer(texts["white"])
+
+
+@exception
+@startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["colors"]["basicColors"]["black"])
+async def black(message: Message):
+    logger.info("Кнопка Black нажата")
+    await message.answer(texts["black"])
 
 
 @exception
@@ -102,3 +163,19 @@ async def default(message: Message, state: FSMContext):
     await state.set_state(StateMachine.START)
     await message.answer(texts['iDidNotFuckingUnderstandYouStupidMoron'], reply_markup=startKeyboard)
 
+"""
+Генератор кода для цветов
+@exception
+@startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["colors"]["basicColors"]["red"])
+async def red(message: Message):
+    logger.info("Кнопка red нажата")
+    await message.answer(texts["red"])
+    for x in names["colors"]["basicColors"].keys():
+        print(f"
+@exception
+@startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["colors"]["basicColors"]["{x}"])
+async def {x}(message: Message):
+    logger.info("Кнопка {x.capitalize()} нажата")
+    await message.answer(texts["{x}"])")
+
+"""
