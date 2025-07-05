@@ -111,6 +111,7 @@ async def red(message: Message):
 async def green(message: Message):
     logger.info("Кнопка Green нажата")
     await message.answer(texts["green"])
+    FanController.green()
 
 
 @exception

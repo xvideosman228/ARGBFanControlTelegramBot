@@ -1,24 +1,45 @@
+#include <FastLED.h>
+
+#define LED_PIN     2
+#define NUM_LEDS    8
+CRGB leds[NUM_LEDS];
+
+boolean runPrideEffect = false; // Глобальный флаг, определяющий, запущен ли pride2015
+
 void setup() {
-  pinMode(2, OUTPUT);            // Настроить вывод 2 как выход
-  pinMode(3, OUTPUT);            // Настроить вывод 3 как выход
-  Serial.begin(9600);            // Начало обмена данными через последовательный порт
+  FastLED.addLeds<NEOPIXEL, LED_PIN>(leds, NUM_LEDS);
+  Serial.begin(9600); // Инициализируем последовательный порт для приема команд
 }
 
 void loop() {
-  if (Serial.available() > 0) {  // Если данные доступны
-    String receivedStr = Serial.readStringUntil('\\n');  // Чтение строки до перевода строки (\\n)
-    receivedStr.trim();                                 // Удаляем возможные лишние пробелы и переводы строки
+  checkForCommands(); // Регулярно проверяем, не поступил ли новый запрос
 
-    if (receivedStr.equalsIgnoreCase("A")) {           // Проверка полученной строки
-      digitalWrite(2, HIGH);                           // Включаем светодиод на выводе 2
-      delay(1000);                                     // Пауза 1 секунду
-      digitalWrite(2, LOW);                            // Выключаем светодиод
-    }
+  if(runPrideEffect) {
+    pride2015(); // Воспроизводим эффект pride2015, если включен
+  }
+}
 
-    if (receivedStr.equalsIgnoreCase("A")) {           // Проверка второй строки
-      digitalWrite(3, HIGH);                           // Включаем светодиод на выводе 3
-      delay(1000);                                     // Пауза 1 секунду
-      digitalWrite(3, LOW);                            // Выключаем светодиод
+// Проверка порта на наличие запросов
+void checkForCommands() {
+  if (Serial.available() > 0) {
+    String incomingCommand = Serial.readStringUntil('\\n');
+    incomingCommand.trim(); // очищаем от пробелов и переводов строки
+
+    if(incomingCommand.equalsIgnoreCase("red")) {
+      runPrideEffect = true; // включить бесконечное воспроизведение pride2015
+    } else {
+      runPrideEffect = false; // любая другая команда отменяет эффект pride2015
     }
   }
+}
+
+// Встроенный эффект pride2015 из FastLED
+void pride2015() {
+  static uint8_t startIndex = 0;
+  for(int i = 0; i < NUM_LEDS; i++) {
+    leds[i] = CHSV(startIndex + i * 16, 255, 255);
+  }
+  FastLED.show();
+  startIndex += 1;
+  delay(10); // скорость воспроизведения эффекта
 }

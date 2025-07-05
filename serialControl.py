@@ -13,7 +13,12 @@ arduino = serial.Serial(port=conf['port'], baudrate=conf['baudrate'], timeout=co
 class FanController:
     @staticmethod
     def red():
-        logger.info("Отправлен сигнал 1 на Arduino")
-        arduino.write(b'A')
+        logger.info("Отправлен сигнал Red на Arduino")
+        arduino.write(b'red')
+        time.sleep(1) # Пауза в секунду после отправки сигнала
+    @staticmethod
+    def green():
+        logger.info("Отправлен сигнал Green на Arduino")
+        arduino.write(b'gf')
         time.sleep(1) # Пауза в секунду после отправки сигнала
 
