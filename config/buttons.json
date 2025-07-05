@@ -1,19 +1,36 @@
 {
-  "fanConfig": "*\uFE0F⃣ Настроить кулера",
-  "about": "ℹ\uFE0F О создателе",
-  "back": "⬅\uFE0F Назад",
-  "fans":
+  "startButtons":
   {
-    "preinstalled": "#\uFE0F⃣ Предустановленные пресеты",
-    "colors": "⬜\uFE0F Цвета"
+    "strength+": "♨\uD83D\uDD3C",
+    "strength++": "♨⏫",
+    "mode+": "⚙\uFE0F\uD83D\uDD3C",
+    "brightness+": "\uD83D\uDD06\uD83D\uDD3C",
+    "brightness++": "\uD83D\uDD06⏫",
+    "strength-": "♨\uD83D\uDD3D",
+    "strength--": "♨⏬",
+    "mode-": "⚙\uFE0F\uD83D\uDD3D",
+    "brightness-": "\uD83D\uDD06⏫",
+    "brightness--": "\uD83D\uDD06⏬"
+
   },
+  "about": "fefefefsadfadsfasdf",
+
+  "back": "⬅\uFE0F Назад",
+
   "colors":
   {
     "basicColors":
     {
       "red": "\uD83D\uDD34",
-      "green": "\uD83D\uDF00",
-      "blue": "\uD83D\uDD35"
+      "green": "\uD83D\uDFE2",
+      "blue": "\uD83D\uDD35",
+      "yellow": "\uD83D\uDFE1",
+      "orange": "\uD83D\uDFE0",
+      "lightblue": "⚪\uFE0F\uD83D\uDD35",
+      "darkblue": "⚫\uFE0F\uD83D\uDD35",
+      "violet": "\uD83D\uDFE3",
+      "white": "⚪\uFE0F",
+      "black": "⚫\uFE0F"
     }
   },
   "preinstalled":
@@ -21,11 +38,9 @@
     "fadeinout": "плавное появление и затухание",
     "strobe": "моргание",
     "cylon": "cylon (хер знает что это)",
-
     "twinkle": "мерцание",
     "runninglights": "свет бежит",
     "colorwipe": "color wipe",
-
     "rainbow": "плавная радуга",
     "fire": "\uD83D\uDD25 огонь",
     "ocean": "\uD83C\uDF0A океан"

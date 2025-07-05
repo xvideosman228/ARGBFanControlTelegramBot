@@ -3,7 +3,7 @@ from aiogram.fsm.context import FSMContext
 from aiogram.filters.command import Command
 from aiogram import Router, F
 from aiogram.types import Message
-from keyboard import startKeyboard, backKeyboard, fanConfigKeyboard
+from keyboard import startKeyboard, backKeyboard
 from stateMachine import StateMachine
 from config.loggingConfig import exception, logger
 import json
@@ -25,18 +25,23 @@ async def start(message: Message, state: FSMContext):
     await message.answer(texts["start"], reply_markup=startKeyboard)
 
 @exception
-@startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["fanConfig"])
-async def fanConfig(message: Message, state: FSMContext):
-    logger.info("Кнопка Fan Config нажата")
-    await state.set_state(StateMachine.FAN_CONFIG)
-    await message.answer(texts["fanConfig"], reply_markup=fanConfigKeyboard)
-
-@exception
 @startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["about"])
 async def about(message: Message, state: FSMContext):
     logger.info("Кнопка About нажата")
     await state.set_state(StateMachine.ABOUT)
     await message.answer(texts["about"], reply_markup=backKeyboard)
+
+@exception
+@startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["startButtons"]["strength+"])
+async def strengthplus(message: Message):
+    logger.info("Кнопка Strength + нажата")
+    await message.answer(texts["strength+"])
+
+@exception
+@startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["startButtons"]["strength-"])
+async def strengthplus(message: Message):
+    logger.info("Кнопка Strength - нажата")
+    await message.answer(texts["strength-"])
 
 @exception
 @startMenuRouter.message(or_f(*startStates), F.text == names["back"])

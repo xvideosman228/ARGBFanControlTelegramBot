@@ -2,5 +2,11 @@
   "start": "Ты в стартовом меню",
   "about": "Представь, что тут текст о том, какой же @fedor_kochikov ахуенный",
   "fanConfig": "Выбери пресет",
-  "iDidNotFuckingUnderstandYouStupidMoron": "Моя твоя не понимать"
+  "iDidNotFuckingUnderstandYouStupidMoron": "Моя твоя не понимать",
+  "strength+": "+ сила",
+  "strength-": "- сила",
+  "mode+": "+ сила",
+  "mode-": "- сила",
+  "brightness+": "+ яркость",
+  "brightness-": "- яркость"
 }
