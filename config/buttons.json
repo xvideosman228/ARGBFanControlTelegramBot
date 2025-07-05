@@ -9,12 +9,12 @@
     "strength-": "♨\uD83D\uDD3D",
     "strength--": "♨⏬",
     "mode-": "⚙\uFE0F\uD83D\uDD3D",
-    "brightness-": "\uD83D\uDD06⏫",
+    "brightness-": "\uD83D\uDD06\uD83D\uDD3D",
     "brightness--": "\uD83D\uDD06⏬"
 
   },
   "about": "fefefefsadfadsfasdf",
-
+  "customPresets": "Кастомные пресеты",
   "back": "⬅\uFE0F Назад",
 
   "colors":

@@ -17,9 +17,10 @@ def generateStartKeyboard():
     buttons = [x for x in names["startButtons"].values()]
     for button in buttons:
         builder.button(text=button)
+    builder.button(text=names['customPresets'])
     for text in names["colors"]['basicColors'].values():
         builder.button(text=f"{text}")
-    builder.adjust(5,5,5)
+    builder.adjust(5,5,1,5,5)
 
     return builder.as_markup()
 

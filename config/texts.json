@@ -5,8 +5,23 @@
   "iDidNotFuckingUnderstandYouStupidMoron": "Моя твоя не понимать",
   "strength+": "+ сила",
   "strength-": "- сила",
+  "strength++": "++ сила",
+  "strength--": "-- сила",
   "mode+": "+ сила",
   "mode-": "- сила",
   "brightness+": "+ яркость",
-  "brightness-": "- яркость"
+  "brightness-": "- яркость",
+  "brightness++": "++ яркость",
+  "brightness--": "-- яркость",
+
+  "red": "Красный",
+  "green": "Зелёный",
+  "blue": "Синий",
+  "yellow": "Жёлтый",
+  "orange": "Оранжевый",
+  "lightblue": "Голубой",
+  "darkblue": "Тёмно-синий",
+  "violet": "Фиолетовый",
+  "white": "Белый",
+  "black": "Чёрный"
 }
