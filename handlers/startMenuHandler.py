@@ -3,7 +3,7 @@ from aiogram.fsm.context import FSMContext
 from aiogram.filters.command import Command
 from aiogram import Router, F
 from aiogram.types import Message
-from keyboard import startKeyboard, backKeyboard
+from keyboard import startKeyboard, backKeyboard, customPresetsKeyboard
 from stateMachine import StateMachine
 from config.loggingConfig import exception, logger
 from functools import wraps
@@ -15,7 +15,6 @@ with open('./config/buttons.json') as file:
 with open('./config/texts.json') as file:
     texts = json.load(file)
 
-startStates = (StateMachine.FAN_CONFIG, StateMachine.ABOUT)
 
 startMenuRouter = Router()
 
@@ -43,6 +42,25 @@ async def strengthplus(message: Message):
 async def strengthminus(message: Message):
     logger.info("Кнопка Strength - нажата")
     await message.answer(texts["strength-"])
+
+
+
+
+@exception
+@startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["startButtons"]["mode+"])
+async def modeplus(message: Message):
+    logger.info("Кнопка Mode + нажата")
+    await message.answer(texts["mode+"])
+
+@exception
+@startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["startButtons"]["mode-"])
+async def modeminus(message: Message):
+    logger.info("Кнопка Mode - нажата")
+    await message.answer(texts["mode-"])
+
+
+
+
 
 @exception
 @startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["startButtons"]["strength++"])
@@ -149,9 +167,16 @@ async def black(message: Message):
     logger.info("Кнопка Black нажата")
     await message.answer(texts["black"])
 
+@exception
+@startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["customPresets"])
+async def custom(message: Message, state: FSMContext):
+    await state.set_state(StateMachine.CUSTOM_PRESETS)
+    logger.info("Кнопка с кастомными пресетами нажата")
+    await message.answer(texts["custom"], reply_markup=customPresetsKeyboard)
+
 
 @exception
-@startMenuRouter.message(or_f(*startStates), F.text == names["back"])
+@startMenuRouter.message(StateFilter(StateMachine.CUSTOM_PRESETS),F.text == names["back"])
 async def back(message: Message, state: FSMContext):
     await state.set_state(StateMachine.START)
     await message.answer(texts['start'], reply_markup=startKeyboard)

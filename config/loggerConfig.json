@@ -24,7 +24,7 @@
     {
       "class": "logging.StreamHandler",
       "formatter": "streamFormatter",
-      "level": "INFO"
+      "level": "DEBUG"
     }
   },
   "formatters":

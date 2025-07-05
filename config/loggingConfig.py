@@ -16,6 +16,6 @@ def exception(func):
         try:
             await func(*args, **kwargs)
         except Exception:
-            err = f"There is an exception in {func.__name__}"
+            err = f"Исключение появилось: {func.__name__}"
             logger.exception(err)
     return wrapper
