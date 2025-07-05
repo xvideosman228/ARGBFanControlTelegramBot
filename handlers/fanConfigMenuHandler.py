@@ -2,8 +2,9 @@ from aiogram.filters import StateFilter, or_f
 from aiogram.fsm.context import FSMContext
 from aiogram.filters.command import Command
 from aiogram import Router, F
+from keyboard import backKeyboard
 from aiogram.types import Message
-from keyboard import
+
 from stateMachine import StateMachine
 from config.loggingConfig import exception, logger
 import json
@@ -18,11 +19,6 @@ startStates = (StateMachine.FAN_CONFIG, StateMachine.ABOUT)
 
 startMenuRouter = Router()
 
-@exception
-@startMenuRouter.message(Command('start'))
-async def start(message: Message, state: FSMContext):
-    await state.set_state(StateMachine.START)
-    await message.answer(texts["start"], reply_markup=startKeyboard)
 
 @exception
 @startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["fanConfig"])

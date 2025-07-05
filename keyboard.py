@@ -12,34 +12,19 @@ InlineKeyboard = partial(InlineKeyboardMarkup)
 Back = partial(Key, text='⬅️ Назад')
 
 
-startKeyboard = ReplyKeyboard(keyboard=[
-        [Key(text=names['fanConfig'])], [Key(text=names['about'])]])
-
-fanConfigKeyboard = ReplyKeyboard(keyboard=[
-        [Key(text=names['fans']['preinstalled'])], [Key(text=names['fans']['colors'])], [Back()]])
-
-def generatePreinstalledFanConfigKeyboard():
+def generateStartKeyboard():
     builder = ReplyKeyboardBuilder()
-    for text in names['preinstalled'].values():
+    buttons = [x for x in names["startButtons"].values()]
+    for button in buttons:
+        builder.button(text=button)
+    for text in names["colors"]['basicColors'].values():
         builder.button(text=f"{text}")
-    builder.add(Back())
-    builder.adjust(3,3,3, 1)
+    builder.adjust(5,5,5)
 
     return builder.as_markup()
 
-preinstalledFanConfigKeyboard = generatePreinstalledFanConfigKeyboard()
+startKeyboard = generateStartKeyboard()
 
-def generateColorsFanConfigKeyboard():
-    builder = ReplyKeyboardBuilder()
-    for text in names['colors']['basicColors'].values():
-        builder.button(text=f"{text}")
-    builder.add(Back())
-    builder.adjust(3, 1)
+backKeyboard = ReplyKeyboard(keyboard=[[Back()]])
 
-    return builder.as_markup()
-
-colorsFanConfigKeyboard = generateColorsFanConfigKeyboard()
-
-backKeyboard = ReplyKeyboard(keyboard=[
-        [Back()]])
 
