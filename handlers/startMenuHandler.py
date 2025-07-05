@@ -6,7 +6,7 @@ from aiogram.types import Message
 from keyboard import startKeyboard, backKeyboard, customPresetsKeyboard
 from stateMachine import StateMachine
 from config.loggingConfig import exception, logger
-from functools import wraps
+from serialControl import FanController
 import json
 
 with open('./config/buttons.json') as file:
@@ -103,6 +103,7 @@ async def brightnessminusminus(message: Message):
 async def red(message: Message):
     logger.info("Кнопка Red нажата")
     await message.answer(texts["red"])
+    FanController.red()
 
 
 @exception

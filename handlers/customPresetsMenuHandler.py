@@ -1,6 +1,5 @@
 from aiogram.filters import StateFilter, or_f
 from aiogram.fsm.context import FSMContext
-from aiogram.filters.command import Command
 from aiogram import Router, F
 from keyboard import backKeyboard
 from aiogram.types import Message
