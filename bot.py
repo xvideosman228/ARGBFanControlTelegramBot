@@ -1,5 +1,4 @@
 from config.botConfig import bot, dp
-# from selectLanguageHandler import selectLanguageRouter
 from config.loggingConfig import logger
 from handlers.startMenuHandler import startMenuRouter
 

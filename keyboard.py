@@ -24,7 +24,20 @@ def generateStartKeyboard():
 
     return builder.as_markup()
 
+
+def generateCustomPresetsKeyboard():
+    builder = ReplyKeyboardBuilder()
+    buttons = [x for x in names["custom"].values()]
+    for button in buttons:
+        builder.button(text=button)
+    builder.button(text='⬅️ Назад')
+    builder.adjust(3,3,3,1)
+
+    return builder.as_markup()
+
 startKeyboard = generateStartKeyboard()
+customPresetsKeyboard = generateCustomPresetsKeyboard()
+
 
 backKeyboard = ReplyKeyboard(keyboard=[[Back()]])
 
