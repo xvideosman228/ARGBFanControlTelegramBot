@@ -39,9 +39,55 @@ async def strengthplus(message: Message):
 
 @exception
 @startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["startButtons"]["strength-"])
-async def strengthplus(message: Message):
+async def strengthminus(message: Message):
     logger.info("Кнопка Strength - нажата")
     await message.answer(texts["strength-"])
+
+@exception
+@startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["startButtons"]["strength++"])
+async def strengthplusplus(message: Message):
+    logger.info("Кнопка Strength ++ нажата")
+    await message.answer(texts["strength++"])
+
+@exception
+@startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["startButtons"]["strength--"])
+async def strengthminusminus(message: Message):
+    logger.info("Кнопка Strength -- нажата")
+    await message.answer(texts["strength--"])
+
+@exception
+@startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["startButtons"]["brightness+"])
+async def brightnessplus(message: Message):
+    logger.info("Кнопка Brightness + нажата")
+    await message.answer(texts["brightness+"])
+
+@exception
+@startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["startButtons"]["brightness-"])
+async def brightnessminus(message: Message):
+    logger.info("Кнопка Brightness - нажата")
+    await message.answer(texts["brightness-"])
+
+@exception
+@startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["startButtons"]["brightness++"])
+async def brightnessplusplus(message: Message):
+    logger.info("Кнопка Brightness ++ нажата")
+    await message.answer(texts["brightness++"])
+
+@exception
+@startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["startButtons"]["brightness--"])
+async def brightnessminusminus(message: Message):
+    logger.info("Кнопка Brightness -- нажата")
+    await message.answer(texts["brightness--"])
+
+
+
+
+
+
+
+
+
+
 
 @exception
 @startMenuRouter.message(or_f(*startStates), F.text == names["back"])
