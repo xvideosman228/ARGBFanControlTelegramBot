@@ -90,12 +90,14 @@ async def brightnessminus(message: Message):
 @startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["startButtons"]["brightness++"])
 async def brightnessplusplus(message: Message):
     logger.info("Кнопка Brightness ++ нажата")
+    FanController.brightnessplusplus()
     await message.answer(texts["brightness++"])
 
 @exception
 @startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["startButtons"]["brightness--"])
 async def brightnessminusminus(message: Message):
     logger.info("Кнопка Brightness -- нажата")
+    FanController.brightnessminusminus()
     await message.answer(texts["brightness--"])
 
 @exception
