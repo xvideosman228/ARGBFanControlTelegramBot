@@ -121,6 +121,7 @@ async def green(message: Message):
 async def blue(message: Message):
     logger.info("Кнопка Blue нажата")
     await message.answer(texts["blue"])
+    FanController.blue()
 
 
 @exception
@@ -128,20 +129,35 @@ async def blue(message: Message):
 async def yellow(message: Message):
     logger.info("Кнопка Yellow нажата")
     await message.answer(texts["yellow"])
-
+    FanController.yellow()
 
 @exception
 @startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["colors"]["basicColors"]["orange"])
 async def orange(message: Message):
     logger.info("Кнопка Orange нажата")
     await message.answer(texts["orange"])
+    FanController.orange()
 
+@exception
+@startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["colors"]["basicColors"]["yelloworange"])
+async def yelloworange(message: Message):
+    logger.info("Кнопка YellowOrange нажата")
+    await message.answer(texts["yelloworange"])
+    FanController.yelloworange()
+
+@exception
+@startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["colors"]["basicColors"]["orangered"])
+async def orangered(message: Message):
+    logger.info("Кнопка OrangeRed нажата")
+    await message.answer(texts["orangered"])
+    FanController.orangered()
 
 @exception
 @startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["colors"]["basicColors"]["lightblue"])
 async def lightblue(message: Message):
     logger.info("Кнопка Lightblue нажата")
     await message.answer(texts["lightblue"])
+    FanController.lightblue()
 
 
 @exception
@@ -149,13 +165,14 @@ async def lightblue(message: Message):
 async def darkblue(message: Message):
     logger.info("Кнопка Darkblue нажата")
     await message.answer(texts["darkblue"])
-
+    FanController.darkblue()
 
 @exception
 @startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["colors"]["basicColors"]["violet"])
 async def violet(message: Message):
     logger.info("Кнопка Violet нажата")
     await message.answer(texts["violet"])
+    FanController.violet()
 
 
 @exception
@@ -163,13 +180,14 @@ async def violet(message: Message):
 async def white(message: Message):
     logger.info("Кнопка White нажата")
     await message.answer(texts["white"])
-
+    FanController.white()
 
 @exception
 @startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["colors"]["basicColors"]["black"])
 async def black(message: Message):
     logger.info("Кнопка Black нажата")
     await message.answer(texts["black"])
+    FanController.black()
 
 @exception
 @startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["customPresets"])
