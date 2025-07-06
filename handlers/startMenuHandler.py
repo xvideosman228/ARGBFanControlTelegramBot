@@ -7,6 +7,7 @@ from keyboard import startKeyboard, backKeyboard, customPresetsKeyboard
 from stateMachine import StateMachine
 from config.loggingConfig import exception, logger
 from serialControl import FanController
+from handlers.customPresetsMenuHandler import customPresetsMenuRouter
 import json
 
 with open('./config/buttons.json') as file:
@@ -17,6 +18,7 @@ with open('./config/texts.json') as file:
 
 
 startMenuRouter = Router()
+startMenuRouter.include_router(customPresetsMenuRouter)
 
 @exception
 @startMenuRouter.message(Command('start'))

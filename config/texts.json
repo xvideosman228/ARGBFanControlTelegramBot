@@ -25,5 +25,11 @@
   "darkblue": "Тёмно-синий",
   "violet": "Фиолетовый",
   "white": "Белый",
-  "black": "Чёрный"
+  "black": "Чёрный",
+
+  "fadeinout": "Плавное появление/затухание",
+  "colorWipe": "Color Wipe",
+  "rainbow": "Радуга",
+  "runninglights": "свет бежит",
+  "cylon": "Cylon"
 }

@@ -33,7 +33,7 @@ void staticColor(CRGB color) {
   FastLED.show();
 }
 
-// showPride();
+// 
 
 //FadeInOut(0xff, 0x77, 0x00);
 
@@ -42,7 +42,6 @@ void staticColor(CRGB color) {
 
 // RunningLights(0xff,0xff,0x00, 100);
 
-// rainbowCycle(20);
 
 // theaterChaseRainbow(50);
 // testGroups(); 
@@ -183,7 +182,62 @@ void loop() {
         }
       }
     }
-  
+
+    else if(command == "FADEINOUT") 
+    {          
+      while(true) {     
+        Serial.println("FADE IN & OUT");  
+        FadeInOut(0xff, 0x77, 0x00);         
+        if(Serial.available()) {   
+          break;                   
+        }
+      }
+    }
+
+    else if(command == "COLORWIPE") 
+    {          
+      while(true) {     
+        Serial.println("COLOR WIPE");       
+        colorWipe(0xff,0xa5,0x00, 50);
+        colorWipe(0x42,0x25,0x00, 50);        
+        if(Serial.available()) {   
+          break;                   
+        }
+      }
+    }
+    // 
+    else if(command == "RAINBOW") 
+    {          
+      while(true) {     
+        Serial.println("RAINBOW");       
+        rainbowCycle(10);
+        if(Serial.available()) {   
+          break;                   
+        }
+      }
+    }
+
+    else if(command == "RUNNINGLIGHT") 
+    {          
+      while(true) {     
+        Serial.println("RUNNING LIGHT");       
+        theaterChaseRainbow(40);
+        if(Serial.available()) {   
+          break;                   
+        }
+      }
+    }
+
+    else if(command == "CYLON") 
+    {          
+      while(true) {     
+        Serial.println("CYLON");       
+        showPride();
+        if(Serial.available()) {   
+          break;                   
+        }
+      }
+    }  
   }
   
 }

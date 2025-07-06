@@ -84,6 +84,36 @@ class FanController:
         time.sleep(1)
 
     @staticmethod
+    def fadeinout():
+        logger.info("Отправлен сигнал BLACK на Arduino")
+        arduino.write(b'FADEINOUT')
+        time.sleep(1)
+
+    @staticmethod
+    def colorWipe():
+        logger.info("Отправлен сигнал Color Wipe на Arduino")
+        arduino.write(b'COLORWIPE')
+        time.sleep(1)
+
+    @staticmethod
+    def rainbow():
+        logger.info("Отправлен сигнал Rainbow на Arduino")
+        arduino.write(b'RAINBOW')
+        time.sleep(1)
+
+    @staticmethod
+    def cylon():
+        logger.info("Отправлен сигнал Cylon на Arduino")
+        arduino.write(b'CYLON')
+        time.sleep(1)
+
+    @staticmethod
+    def runninglight():
+        logger.info("Отправлен сигнал Running Light на Arduino")
+        arduino.write(b'RUNNINGLIGHT')
+        time.sleep(1)
+
+    @staticmethod
     def brightnessplusplus():
         logger.info("Отправлен сигнал Brightness ++ на Arduino")
         arduino.write(b'BRIGHTNESS++')
