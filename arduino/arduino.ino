@@ -1,29 +1,51 @@
 #include <FastLED.h>
 
-#define PIN     2      // ПИН, подключенный к ленте
+#define PIN    13
 #define LED_TYPE    WS2811
 #define COLOR_ORDER GRB
-#define NUM_LEDS    8
+#define NUM 8
 #define BRIGHTNESS 255
 
-CRGB leds[NUM_LEDS];       // Массив для хранения состояния каждого диода
+CRGB leds[NUM];       // Массив для хранения состояния каждого диода
 
 void setup() {
   delay(2000);
-  FastLED.addLeds<WS2811, PIN, GRB>(leds, NUM_LEDS).setCorrection( TypicalLEDStrip );            // Задержка перед инициализацией, позволяет подключить монитор порта
+  FastLED.addLeds<WS2811, PIN, GRB>(leds, NUM).setCorrection( TypicalLEDStrip );
+
+  
+          // Задержка перед инициализацией, позволяет подключить монитор порта
   Serial.begin(9600);     // Начинаем работу последовательного порта
 }
 
 // Функция для показа стандартной анимации Pride 2015
 void showPride() {
-  fill_rainbow(leds, NUM_LEDS, millis() / 20, 7);
+  fill_rainbow(leds, NUM, millis() / 20, 7);
   FastLED.show();
 }
 
-void showP() {
-  fill_solid( leds, NUM_LEDS, CRGB::Red );
+// Очистка всех светодиодов
+
+
+// Тестирование отдельных групп светодиодов
+
+void staticColor(CRGB color) {
+  fill_solid( leds, NUM, color );
   FastLED.show();
 }
+
+// showPride();
+
+//FadeInOut(0xff, 0x77, 0x00);
+
+//colorWipe(0x00,0xff,0x00, 50);
+//colorWipe(0x00,0x00,0x00, 50);
+
+// RunningLights(0xff,0xff,0x00, 100);
+
+// rainbowCycle(20);
+
+// theaterChaseRainbow(50);
+// testGroups(); 
 
 // Основной цикл обработки
 void loop() {
@@ -31,31 +53,176 @@ void loop() {
     String command = Serial.readStringUntil('\\n');
     Serial.println(command);
     if(command == "RED") 
-    {          // Если команда равна 'red', запускаем режим Rainbow Pride
+    {          
       while(true) {     
-        Serial.println("RED");            // Бесконечный цикл воспроизведения анимации
-        showPride();                // Показываем анимацию
-        
-        if(Serial.available()) {   // Ожидаем новую команду
-          break;                   // Выходим из бесконечного цикла при получении новой команды
+        Serial.println("RED");            
+        staticColor(CRGB::Red);
+        if(Serial.available()) {   
+          break;                   
         }
       }
     }
 
     else if(command == "GREEN") 
-    {          // Если команда равна 'red', запускаем режим Rainbow Pride
+    {          
       while(true) {     
-        Serial.println("GREEN");            // Бесконечный цикл воспроизведения анимации
-        FadeInOut(0xff, 0x77, 0x00);                // Показываем анимацию
-        
-        if(Serial.available()) {   // Ожидаем новую команду
-          break;                   // Выходим из бесконечного цикла при получении новой команды
+        Serial.println("GREEN");            
+        staticColor(CRGB::Green);
+        if(Serial.available()) {   
+          break;                   
         }
       }
     }
-  // Другие возможные команды можно добавить аналогично
+  
+    else if(command == "BLUE") 
+    {          
+      while(true) {     
+        Serial.println("BLUE");            
+        staticColor(CRGB::Blue);
+        if(Serial.available()) {   
+          break;                   
+        }
+      }
+    }
+
+    else if(command == "YELLOW") 
+    {          
+      while(true) {     
+        Serial.println("YELLOW");                 
+        staticColor(CRGB::Yellow);
+        if(Serial.available()) {   
+          break;                   
+        }
+      }
+    }
+
+    else if(command == "YELLOWORANGE") 
+    {          
+      while(true) {     
+        Serial.println("YELLOWORANGE");                 
+        staticColor(CRGB::Gold);
+        if(Serial.available()) {   
+          break;                   
+        }
+      }
+    }
+
+    else if(command == "ORANGE") 
+    {          
+      while(true) {     
+        Serial.println("ORANGE");                 
+        staticColor(CRGB::DarkOrange);
+        if(Serial.available()) {   
+          break;                   
+        }
+      }
+    }
+
+    else if(command == "ORANGERED") 
+    {          
+      while(true) {     
+        Serial.println("ORANGERED");            
+        staticColor(CRGB::OrangeRed);  
+        if(Serial.available()) {   
+          break;                   
+        }
+      }
+    }
+
+    else if(command == "LIGHTBLUE") 
+    {          
+      while(true) {     
+        Serial.println("LIGHT BLUE");            
+        staticColor(CRGB::Turquoise); 
+        if(Serial.available()) {   
+          break;                   
+        }
+      }
+    }
+
+    else if(command == "DARKBLUE") 
+    {          
+      while(true) {     
+        Serial.println("DARKBLUE");  
+        staticColor(CRGB::MidnightBlue);         
+        if(Serial.available()) {   
+          break;                   
+        }
+      }
+    }
+
+    else if(command == "VIOLET") 
+    {          
+      while(true) {     
+        Serial.println("VIOLET");  
+        staticColor(CRGB::Purple);         
+        if(Serial.available()) {   
+          break;                   
+        }
+      }
+    }
+
+    else if(command == "WHITE") 
+    {          
+      while(true) {     
+        Serial.println("WHITE");  
+        staticColor(CRGB::Snow);         
+        if(Serial.available()) {   
+          break;                   
+        }
+      }
+    }
+
+    else if(command == "BLACK") 
+    {          
+      while(true) {     
+        Serial.println("BALCK");  
+        staticColor(CRGB::Black);         
+        if(Serial.available()) {   
+          break;                   
+        }
+      }
+    }
+  
   }
   
+}
+
+void CylonBounce(byte red, byte green, byte blue, int EyeSize, int SpeedDelay, int ReturnDelay){
+
+  for(int i = 0; i < NUM-EyeSize-2; i++) {
+    setAll(0,0,0);
+    setPixel(i, red/10, green/10, blue/10);
+    for(int j = 1; j <= EyeSize; j++) {
+      setPixel(i+j, red, green, blue);
+    }
+    setPixel(i+EyeSize+1, red/10, green/10, blue/10);
+    showStrip();
+    delay(SpeedDelay);
+  }
+
+  delay(ReturnDelay);
+
+  for(int i = NUM-EyeSize-2; i > 0; i--) {
+    setAll(0,0,0);
+    setPixel(i, red/10, green/10, blue/10);
+    for(int j = 1; j <= EyeSize; j++) {
+      setPixel(i+j, red, green, blue);
+    }
+    setPixel(i+EyeSize+1, red/10, green/10, blue/10);
+    showStrip();
+    delay(SpeedDelay);
+  }
+ 
+  delay(ReturnDelay);
+}
+
+void colorWipe(byte red, byte green, byte blue, int SpeedDelay) {
+  for(uint16_t i=0; i<NUM; i++) {
+      setPixel(i, red, green, blue);
+      showStrip();
+      delay(SpeedDelay);
+  }
 }
 
 void FadeInOut(byte red, byte green, byte blue){
@@ -80,6 +247,87 @@ void FadeInOut(byte red, byte green, byte blue){
     setAll(r,g,b);
     showStrip();
   }
+}
+
+void RunningLights(byte red, byte green, byte blue, int WaveDelay) {
+  int Position=0;
+ 
+  for(int j=0; j<NUM*4; j++)
+  {
+      Position++; // = 0; //Position + Rate;
+      for(int i=0; i<NUM; i++) {
+        // sine wave, 3 offset waves make a rainbow!
+        //float level = sin(i+Position) * 127 + 128;
+        //setPixel(i,level,0,0);
+        //float level = sin(i+Position) * 127 + 128;
+        setPixel(i,((sin(i+Position) * 127 + 128)/255)*red,
+                   ((sin(i+Position) * 127 + 128)/255)*green,
+                   ((sin(i+Position) * 127 + 128)/255)*blue);
+      }
+     
+      showStrip();
+      delay(WaveDelay);
+  }
+}
+
+void rainbowCycle(int SpeedDelay) {
+  byte *c;
+  uint16_t i, j;
+
+  for(j=0; j<256*5; j++) { // 5 cycles of all colors on wheel
+    for(i=0; i< NUM; i++) {
+      c=Wheel(((i * 256 / NUM) + j) & 255);
+      setPixel(i, *c, *(c+1), *(c+2));
+    }
+    if(Serial.available()) {   
+          break;                   
+        }
+    showStrip();
+    delay(SpeedDelay);
+  }
+}
+
+void theaterChaseRainbow(int SpeedDelay) {
+  byte *c;
+ 
+  for (int j=0; j < 256; j++) {     // cycle all 256 colors in the wheel
+    for (int q=0; q < 3; q++) {
+        for (int i=0; i < NUM; i=i+3) {
+          c = Wheel( (i+j) % 255);
+          setPixel(i+q, *c, *(c+1), *(c+2));    //turn every third pixel on
+        }
+        showStrip();
+       
+        delay(SpeedDelay);
+       
+        for (int i=0; i < NUM; i=i+3) {
+          setPixel(i+q, 0,0,0);        //turn every third pixel off
+        }
+    }
+  }
+}
+
+
+byte * Wheel(byte WheelPos) {
+  static byte c[3];
+ 
+  if(WheelPos < 85) {
+   c[0]=WheelPos * 3;
+   c[1]=255 - WheelPos * 3;
+   c[2]=0;
+  } else if(WheelPos < 170) {
+   WheelPos -= 85;
+   c[0]=255 - WheelPos * 3;
+   c[1]=0;
+   c[2]=WheelPos * 3;
+  } else {
+   WheelPos -= 170;
+   c[0]=0;
+   c[1]=WheelPos * 3;
+   c[2]=255 - WheelPos * 3;
+  }
+
+  return c;
 }
 
 void showStrip() {
@@ -107,8 +355,14 @@ void setPixel(int Pixel, byte red, byte green, byte blue) {
 }
 
 void setAll(byte red, byte green, byte blue) {
-  for(int i = 0; i < NUM_LEDS; i++ ) {
+  for(int i = 0; i < NUM; i++ ) {
     setPixel(i, red, green, blue);
   }
   showStrip();
 }
+
+
+
+
+
+
