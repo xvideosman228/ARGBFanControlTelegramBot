@@ -60,7 +60,20 @@ async def cylon(message: Message):
     FanController.cylon()
 
 @exception
+@customPresetsMenuRouter.message(StateFilter(StateMachine.CUSTOM_PRESETS), F.text == names["custom"]["pacific"])
+async def pacific(message: Message):
+    logger.info("Кнопка Pacific нажата")
+    await message.answer(texts["pacific"])
+    FanController.pacific()
+
+@exception
 @customPresetsMenuRouter.message(StateFilter(StateMachine.CUSTOM_PRESETS), F.text)
 async def default(message: Message, state: FSMContext):
     logger.info(f"Пользователь {message.from_user.id} чёто непонятное сказал")
     await message.answer(texts['iDidNotFuckingUnderstandYouStupidMoron'], reply_markup=customPresetsKeyboard)
+
+
+"""
+    "fire": "\uD83D\uDD25 огонь",
+    "ocean": "\uD83C\uDF0A океан"
+"""

@@ -108,6 +108,12 @@ class FanController:
         time.sleep(1)
 
     @staticmethod
+    def pacific():
+        logger.info("Отправлен сигнал Pacific на Arduino")
+        arduino.write(b'PACIFIC')
+        time.sleep(1)
+
+    @staticmethod
     def runninglight():
         logger.info("Отправлен сигнал Running Light на Arduino")
         arduino.write(b'RUNNINGLIGHT')
