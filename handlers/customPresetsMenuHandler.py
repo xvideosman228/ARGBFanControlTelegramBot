@@ -2,7 +2,8 @@ from aiogram.filters import StateFilter
 from aiogram.fsm.context import FSMContext
 from aiogram import Router, F
 from aiogram.types import Message
-
+from aiogram.filters import or_f
+from handlers.colorWipeHandler import colorWipeRouter
 from handlers.fadeInOutHandler import fadeInOutRouter
 from keyboard import customPresetsKeyboard, colorKeyboard
 from serialControl import FanController
@@ -17,7 +18,7 @@ with open('./config/texts.json') as file:
     texts = json.load(file)
 
 customPresetsMenuRouter = Router()
-customPresetsMenuRouter.include_router(fadeInOutRouter)
+customPresetsMenuRouter.include_routers(fadeInOutRouter, colorWipeRouter)
 
 
 @exception
@@ -28,10 +29,10 @@ async def fanConfig(message: Message):
 
 @exception
 @customPresetsMenuRouter.message(StateFilter(StateMachine.CUSTOM_PRESETS), F.text == names["custom"]["colorwipe"])
-async def colorwipe(message: Message):
+async def colorwipe(message: Message, state: FSMContext):
     logger.info("Кнопка Color Wipe нажата")
-    await message.answer(texts["colorWipe"])
-    FanController.colorWipe()
+    await state.set_state(StateMachine.COLOR_WIPE_1)
+    await message.answer(texts["colorWipe"], reply_markup=colorKeyboard)
 
 @exception
 @customPresetsMenuRouter.message(StateFilter(StateMachine.CUSTOM_PRESETS), F.text == names["custom"]["fadeinout"])
@@ -74,6 +75,11 @@ async def default(message: Message, state: FSMContext):
     logger.info(f"Пользователь {message.from_user.id} чёто непонятное сказал")
     await message.answer(texts['iDidNotFuckingUnderstandYouStupidMoron'], reply_markup=customPresetsKeyboard)
 
+@exception
+@customPresetsMenuRouter.message(or_f(StateFilter(StateMachine.FADE_IN_OUT), StateFilter(StateMachine.COLOR_WIPE_1)),F.text == names["back"])
+async def back(message: Message, state: FSMContext):
+    await state.set_state(StateMachine.CUSTOM_PRESETS)
+    await message.answer(texts['start'], reply_markup=customPresetsKeyboard)
 
 """
     "fire": "\uD83D\uDD25 огонь",

@@ -90,9 +90,10 @@ class FanController:
         time.sleep(1)
 
     @staticmethod
-    def colorWipe():
-        logger.info("Отправлен сигнал Color Wipe на Arduino")
-        arduino.write(b'COLORWIPE')
+    def colorwipe(color1, color2):
+        logger.info("Отправлен сигнал BLACK на Arduino")
+        print(color1, color2)
+        arduino.write(b'COLORWIPE' + b' ' + color1.encode('utf-8') + b' ' + color2.encode("utf-8"))
         time.sleep(1)
 
     @staticmethod
