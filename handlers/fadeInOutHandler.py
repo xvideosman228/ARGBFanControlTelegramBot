@@ -18,7 +18,6 @@ with open('./config/texts.json') as file:
 fadeInOutRouter = Router()
 
 
-
 @exception
 @fadeInOutRouter.message(StateFilter(StateMachine.FADE_IN_OUT), F.text == names["colors"]["basicColors"]["red"])
 async def red(message: Message):
