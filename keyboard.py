@@ -35,6 +35,18 @@ def generateCustomPresetsKeyboard():
 
     return builder.as_markup()
 
+
+def generateColorKeyboard():
+    builder = ReplyKeyboardBuilder()
+    buttons = [x for x in names["colors"]["basicColors"].values()]
+    for button in buttons:
+        builder.button(text=button)
+    builder.button(text='⬅️ Назад')
+    builder.adjust(6,6, 1)
+
+    return builder.as_markup()
+
+colorKeyboard = generateColorKeyboard()
 startKeyboard = generateStartKeyboard()
 customPresetsKeyboard = generateCustomPresetsKeyboard()
 

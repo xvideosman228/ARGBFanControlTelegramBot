@@ -4,3 +4,5 @@ from aiogram.fsm.state import StatesGroup, State
 class StateMachine(StatesGroup):
     START = State()
     CUSTOM_PRESETS = State()
+
+    FADE_IN_OUT = State()

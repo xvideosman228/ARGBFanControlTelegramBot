@@ -14,6 +14,8 @@
   "brightness++": "++ яркость",
   "brightness--": "-- яркость",
 
+  "chooseColor": "",
+
   "red": "Красный",
   "green": "Зелёный",
   "blue": "Синий",

@@ -3,7 +3,8 @@ from aiogram.fsm.context import FSMContext
 from aiogram import Router, F
 from aiogram.types import Message
 
-from keyboard import customPresetsKeyboard
+from handlers.fadeInOutHandler import fadeInOutRouter
+from keyboard import customPresetsKeyboard, colorKeyboard
 from serialControl import FanController
 from stateMachine import StateMachine
 from config.loggingConfig import exception, logger
@@ -16,6 +17,7 @@ with open('./config/texts.json') as file:
     texts = json.load(file)
 
 customPresetsMenuRouter = Router()
+customPresetsMenuRouter.include_router(fadeInOutRouter)
 
 
 @exception
@@ -33,10 +35,10 @@ async def colorwipe(message: Message):
 
 @exception
 @customPresetsMenuRouter.message(StateFilter(StateMachine.CUSTOM_PRESETS), F.text == names["custom"]["fadeinout"])
-async def fadeinout(message: Message):
+async def fadeinout(message: Message, state: FSMContext):
     logger.info("Кнопка Fade in/out нажата")
-    await message.answer(texts["fadeinout"])
-    FanController.fadeinout()
+    await state.set_state(StateMachine.FADE_IN_OUT)
+    await message.answer(texts["fadeinout"], reply_markup=colorKeyboard)
 
 @exception
 @customPresetsMenuRouter.message(StateFilter(StateMachine.CUSTOM_PRESETS), F.text == names["custom"]["rainbow"])
