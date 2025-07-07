@@ -32,6 +32,17 @@ async def fanConfig(message: Message):
 async def colorwipe(message: Message, state: FSMContext):
     logger.info("Кнопка Color Wipe нажата")
     await state.set_state(StateMachine.COLOR_WIPE_1)
+    for x in names["colors"]["basicColors"]:
+        print(f"""
+@exception
+@colorWipeRouter.message(StateFilter(StateMachine.COLOR_WIPE_1), F.text == names["colors"]["basicColors"]["{x}"])
+async def {x}(message: Message, state: FSMContext):
+    logger.info("Выбран {x.capitalize()} для Color Wipe")
+    await state.update_data(COLOR_1="{x.upper()}")
+    await state.set_state(StateMachine.COLOR_WIPE_2)
+    await message.answer(names["colors"]["basicColors"]["{x}"] + ' для ' + names["custom"]["colorwipe"])
+
+        """)
     await message.answer(texts["colorWipe"], reply_markup=colorKeyboard)
 
 @exception

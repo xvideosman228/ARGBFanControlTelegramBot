@@ -229,11 +229,8 @@ void loop() {
       int secondSpace = command.indexOf(' ', firstSpace) + 1;
       String color1 = command.substring(firstSpace, secondSpace);
       String color2 = command.substring(secondSpace);
-      Serial.println("COLOR WIPE");
-      Serial.println(color1);
-      Serial.println(color2);
       while(true) {     
-        Serial.println("COLOR WIPE");       
+        Serial.println("COLORWIPE " + color1 + color2);   
         colorWipe(colorPick(color1), 50);
         colorWipe(colorPick(color2), 50);     
         if(Serial.available()) {   
@@ -333,9 +330,9 @@ void CylonBounce(byte red, byte green, byte blue, int EyeSize, int SpeedDelay, i
 
 void colorWipe(CRGB color, int SpeedDelay) 
 {
-  int red = color.r;
-  int green = color.g;
-  int blue = color.b;
+  uint8_t red = color.r;
+  uint8_t green = color.g;
+  uint8_t blue = color.b;
   for(uint16_t i=0; i<NUM; i++) {
       setPixel(i, red, green, blue);
       showStrip();
