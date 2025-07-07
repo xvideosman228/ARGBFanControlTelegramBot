@@ -37,14 +37,11 @@
   },
   "custom":
   {
-    "fadeinout": "плавное появление и затухание",
-    "strobe": "моргание",
-    "cylon": "cylon",
-    "twinkle": "мерцание",
-    "runninglights": "свет бежит",
-    "colorwipe": "color wipe",
-    "rainbow": "радужный круг",
-    "fire": "\uD83D\uDD25 огонь",
-    "ocean": "\uD83C\uDF0A океан"
+    "fadeinout": "Fade in/out",
+    "cylon": "Cylon",
+    "runninglights": "Running Lights",
+    "colorwipe": "Color Wipe",
+    "rainbow": "Rainbow Circle",
+    "pacific": "Pacific"
   }
 }
