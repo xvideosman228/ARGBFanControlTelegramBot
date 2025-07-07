@@ -54,6 +54,7 @@ void loop() {
   if(Serial.available()) {           // Проверяем наличие данных в последовательном порту
     String command = Serial.readStringUntil('\\n');
     Serial.println(command);
+    String cmd = command.substring(0, command.indexOf(' '));
     if(command == "RED") 
     {          
       while(true) {     
@@ -186,13 +187,31 @@ void loop() {
       }
     }
 
-    else if(command == "FADEINOUT") 
+    else if(cmd == "FADEINOUT") 
     {          
-      while(true) {     
-        Serial.println("FADE IN & OUT");  
-        FadeInOut(0xff, 0x77, 0x00);         
-        if(Serial.available()) {   
-          break;                   
+      Serial.println("FADE IN & OUT");
+      String color = command.substring(command.indexOf(' ') + 1, -1);
+      Serial.println(color);
+      if (color == "RED")
+      {
+        while(true) 
+        {   
+          Serial.println("FADE IN & OUT RED");  
+          FadeInOut(0xff, 0x00, 0x00);         
+          if(Serial.available()) {   
+            break;                   
+          }
+        }
+      }
+      if (color == "ORANGE")
+      {
+        while(true) 
+        {     
+          Serial.println("FADE IN & OUT ORANGE");
+          FadeInOut(0xff, 0x77, 0x00);         
+          if(Serial.available()) {   
+            break;                   
+          }
         }
       }
     }
@@ -267,6 +286,7 @@ void loop() {
   }
   
 }
+
 
 void CylonBounce(byte red, byte green, byte blue, int EyeSize, int SpeedDelay, int ReturnDelay){
 
