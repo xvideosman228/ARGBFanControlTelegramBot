@@ -42,7 +42,7 @@ def generateColorKeyboard():
     for button in buttons:
         builder.button(text=button)
     builder.button(text='⬅️ Назад')
-    builder.adjust(6,6, 1)
+    builder.adjust(6,5, 1)
 
     return builder.as_markup()
 

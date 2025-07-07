@@ -26,6 +26,25 @@ void showPride() {
   FastLED.show();
 }
 
+CRGB colorPick(const String& color)
+{
+  if(color == "RED"){return CRGB::Red;}
+  else if(color == "ORANGE"){return CRGB::DarkOrange;}
+  else if(color == "GREEN"){return CRGB::Green;}
+  
+  else if(color == "YELLOW"){return CRGB::Yellow;}
+  else if(color == "YELLOWORANGE"){return CRGB::Gold;}
+  else if(color == "ORANGERED"){return CRGB::OrangeRed;}
+
+  else if(color == "LIGHTBLUE"){return CRGB::Turquoise;}
+  else if(color == "DARKBLUE"){return CRGB::MidnightBlue;}
+  else if(color == "VIOLET"){return CRGB::Purple;}
+
+  else if(color == "WHITE"){return CRGB::Snow;}
+  else if(color == "BLUE"){return CRGB::Blue;}
+
+}
+
 // Очистка всех светодиодов
 
 
@@ -192,26 +211,13 @@ void loop() {
       Serial.println("FADE IN & OUT");
       String color = command.substring(command.indexOf(' ') + 1, -1);
       Serial.println(color);
-      if (color == "RED")
-      {
-        while(true) 
+      while(true) 
+      {   
+        Serial.println("FADE IN & OUT " + color);  
+        FadeInOut(colorPick(color));         
+        if(Serial.available()) 
         {   
-          Serial.println("FADE IN & OUT RED");  
-          FadeInOut(0xff, 0x00, 0x00);         
-          if(Serial.available()) {   
-            break;                   
-          }
-        }
-      }
-      if (color == "ORANGE")
-      {
-        while(true) 
-        {     
-          Serial.println("FADE IN & OUT ORANGE");
-          FadeInOut(0xff, 0x77, 0x00);         
-          if(Serial.available()) {   
-            break;                   
-          }
+          break;                   
         }
       }
     }
@@ -325,7 +331,10 @@ void colorWipe(byte red, byte green, byte blue, int SpeedDelay) {
   }
 }
 
-void FadeInOut(byte red, byte green, byte blue){
+void FadeInOut(CRGB color){
+  uint8_t red = color.r;
+  uint8_t green = color.g;
+  uint8_t blue = color.b;
   float r, g, b;
      
   for(int k = 0; k < 256; k=k+1) {

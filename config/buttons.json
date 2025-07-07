@@ -19,6 +19,7 @@
 
   "colors":
   {
+    "black": "⚫\uFE0F",
     "basicColors":
     {
       "red": "\uD83D\uDD34",
@@ -34,8 +35,8 @@
       "darkblue": "⚫\uFE0F\uD83D\uDD35",
 
       "violet": "\uD83D\uDFE3",
-      "white": "⚪\uFE0F",
-      "black": "⚫\uFE0F"
+      "white": "⚪\uFE0F"
+
     }
   },
   "custom":
