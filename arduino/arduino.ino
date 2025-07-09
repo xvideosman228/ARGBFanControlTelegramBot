@@ -89,9 +89,26 @@ void fill_gradient_RGB(CRGB *leds, uint16_t num_leds, const CRGB &start_color, c
 }
 
 // Функция для показа стандартной анимации Pride 2015
-void showPride() {
-  fill_rainbow(leds, NUM, millis() / 20, 7);
-  FastLED.show();
+void showPride(uint32_t duration) {
+    static uint32_t startTime = millis();     // Стартовый таймер
+    uint32_t currentMillis = millis();        // Текущие миллисекунды
+    
+    // Процент пройденного пути
+    float progress = min(float(currentMillis - startTime) / duration, 1.0f);
+    
+    // Генерируем новое положение цвета в диапазоне 0...255
+    uint8_t hue = round(progress * 255);
+    
+    // Обновляем пиксели новой расцветкой
+    fill_rainbow(leds, NUM, hue, 7);
+    
+    // Применяем изменения на LED-полоску
+    FastLED.show();
+    
+    // Сброс таймера после завершения полного цикла
+    if (progress >= 1.0f) {
+        startTime = currentMillis;
+    }
 }
 
 CRGB colorPick(const String color)
@@ -458,11 +475,22 @@ void loop() {
       }
     }
 
-    else if(command == "CYLON") 
+    else if(cmd == "CYLON") 
     {          
-      while(true) {     
-        Serial.println("CYLON");       
-        showPride();
+
+      Serial.println("CYLON");
+      int firstSpace = command.indexOf(' ');
+      
+      // получаем строки цветов без лишнего пробела между ними
+      String time = command.substring(firstSpace + 1);
+
+      // Удаляем пробельные символы вручную
+      time.trim();
+
+      while(true) 
+      {   
+        Serial.println("CYLON" + time);       
+        showPride(times(time));
         if(Serial.available()) {   
           break;                   
         }

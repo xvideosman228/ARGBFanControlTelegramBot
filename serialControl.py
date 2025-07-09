@@ -124,9 +124,9 @@ class FanController:
         time.sleep(1)
 
     @staticmethod
-    def cylon():
+    def cylon(time):
         logger.info("Отправлен сигнал Cylon на Arduino")
-        arduino.write(b'CYLON')
+        arduino.write(f'CYLON {time.upper()}'.encode("utf-8"))
         time.sleep(1)
 
     @staticmethod
