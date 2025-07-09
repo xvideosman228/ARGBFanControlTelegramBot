@@ -34,7 +34,7 @@ async def timePick(message: Message, state: FSMContext):
     time = list(names["times"].keys())[timeIndex]
     logger.info(f"Выбран {time} для Color Wipe 2")
 
-    await message.answer(names["times"][f"{time}"] + ' установлено в качестве времени для ' + (names["custom"]["fadeinout"]))
+    await message.answer(names["times"][f"{time}"] + ' установлено в качестве времени для ' + (names["custom"]["fadeinout"]), reply_markup=customPresetsKeyboard)
     color = await state.get_data()
     await state.set_state(StateMachine.CUSTOM_PRESETS)
     FanController.fadeinout(f'{color["COLOR_FADE_IN_OUT"]}', f'{time.upper()}')

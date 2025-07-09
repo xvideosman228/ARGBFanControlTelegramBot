@@ -7,6 +7,9 @@ import json
 with open("config/buttons.json") as file:
     names = json.load(file)
 
+with open("config/presets.json") as file:
+    presets = json.load(file)
+
 ReplyKeyboard = partial(ReplyKeyboardMarkup, resize_keyboard=True)
 InlineKeyboard = partial(InlineKeyboardMarkup)
 Back = partial(Key, text='⬅️ Назад')
@@ -35,6 +38,16 @@ def generateCustomPresetsKeyboard():
 
     return builder.as_markup()
 
+def generatePreinstalledGradient4Keyboard():
+    builder = ReplyKeyboardBuilder()
+    buttons = [x for x in presets["gradient4"].keys()]
+    for button in buttons:
+        builder.button(text=button)
+    builder.button(text=names["make"])
+    builder.button(text='⬅️ Назад')
+    builder.adjust( 2, 1, 1)
+
+    return builder.as_markup()
 
 def generateColorKeyboard():
     builder = ReplyKeyboardBuilder()
@@ -71,6 +84,7 @@ startKeyboard = generateStartKeyboard()
 customPresetsKeyboard = generateCustomPresetsKeyboard()
 timeKeyboard = generateTimeKeyboard()
 shortTimeKeyboard = generateShortTimeKeyboard()
+preinstalledGradient4Keyboard = generatePreinstalledGradient4Keyboard()
 
 backKeyboard = ReplyKeyboard(keyboard=[[Back()]])
 

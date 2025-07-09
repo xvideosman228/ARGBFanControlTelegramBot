@@ -181,8 +181,8 @@ void loop() {
     {          
       while(true) {     
         Serial.println("RED");            
-        //staticColor(CRGB::Red);
-        fill_gradient_RGB_4(leds, NUM, CRGB::Red, CRGB::White, CRGB::Red, CRGB::White);
+        staticColor(CRGB::Red);
+        //fill_gradient_RGB_4(leds, NUM, CRGB::Red, CRGB::White, CRGB::Red, CRGB::White);
         if(Serial.available()) {   
           break;                   
         }
