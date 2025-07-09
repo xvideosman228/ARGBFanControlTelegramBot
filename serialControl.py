@@ -12,75 +12,9 @@ arduino = serial.Serial(port=conf['port'], baudrate=conf['baudrate'], timeout=co
 
 class FanController:
     @staticmethod
-    def red():
-        logger.info("Отправлен сигнал Red на Arduino")
-        arduino.write(b'RED')
-        time.sleep(1) # Пауза в секунду после отправки сигнала
-
-    @staticmethod
-    def green():
-        logger.info("Отправлен сигнал Green на Arduino")
-        arduino.write(b'GREEN')
-        time.sleep(1) # Пауза в секунду после отправки сигнала
-
-    @staticmethod
-    def blue():
-        logger.info("Отправлен сигнал Blue на Arduino")
-        arduino.write(b'BLUE')
-        time.sleep(1)  # Пауза в секунду после отправки сигнала
-
-    @staticmethod
-    def yellow():
-        logger.info("Отправлен сигнал Yellow на Arduino")
-        arduino.write(b'YELLOW')
-        time.sleep(1)
-
-    @staticmethod
-    def yelloworange():
-        logger.info("Отправлен сигнал Yellow-Orange на Arduino")
-        arduino.write(b'YELLOWORANGE')
-        time.sleep(1)
-
-    @staticmethod
-    def orangered():
-        logger.info("Отправлен сигнал Orange-Red на Arduino")
-        arduino.write(b'ORANGERED')
-        time.sleep(1)
-
-    @staticmethod
-    def orange():
-        logger.info("Отправлен сигнал Orange на Arduino")
-        arduino.write(b'ORANGE')
-        time.sleep(1)
-
-    @staticmethod
-    def lightblue():
-        logger.info("Отправлен сигнал Light Blue на Arduino")
-        arduino.write(b'LIGHTBLUE')
-        time.sleep(1)
-
-    @staticmethod
-    def darkblue():
-        logger.info("Отправлен сигнал Dark Blue на Arduino")
-        arduino.write(b'DARKBLUE')
-        time.sleep(1)
-
-    @staticmethod
-    def violet():
-        logger.info("Отправлен сигнал Violet на Arduino")
-        arduino.write(b'VIOLET')
-        time.sleep(1)
-
-    @staticmethod
-    def white():
-        logger.info("Отправлен сигнал White на Arduino")
-        arduino.write(b'WHITE')
-        time.sleep(1)
-
-    @staticmethod
-    def black():
-        logger.info("Отправлен сигнал BLACK на Arduino")
-        arduino.write(b'BLACK')
+    def color(color):
+        logger.info(f"Отправлен сигнал {color} на Arduino")
+        arduino.write(f'{color.upper()}'.encode("utf-8"))
         time.sleep(1)
 
     @staticmethod

@@ -23,7 +23,7 @@ def generateStartKeyboard():
     builder.button(text=names['customPresets'])
     for text in names["colors"]['basicColors'].values():
         builder.button(text=f"{text}")
-    builder.adjust(5,5,1,6,6)
+    builder.adjust(5,5,1,7,6)
 
     return builder.as_markup()
 
@@ -55,7 +55,7 @@ def generateColorKeyboard():
     for button in buttons:
         builder.button(text=button)
     builder.button(text='⬅️ Назад')
-    builder.adjust(6,6, 1)
+    builder.adjust(7,6, 1)
 
     return builder.as_markup()
 

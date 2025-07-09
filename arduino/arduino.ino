@@ -124,7 +124,7 @@ CRGB colorPick(const String color)
   else if(color == "LIGHTBLUE"){return CRGB::Turquoise;}
   else if(color == "DARKBLUE"){return CRGB::MidnightBlue;}
   else if(color == "VIOLET"){return CRGB::Purple;}
-
+  else if(color == "PINK"){return CRGB::Fuchsia;}
   else if(color == "WHITE"){return CRGB::Snow;}
   else if(color == "BLUE"){return CRGB::Blue;}
   else if(color == "BLACK"){return CRGB::Black;}
@@ -304,6 +304,17 @@ void loop() {
       while(true) {     
         Serial.println("BALCK");  
         staticColor(CRGB::Black);         
+        if(Serial.available()) {   
+          break;                   
+        }
+      }
+    }
+
+    else if(command == "PINK") 
+    {          
+      while(true) {     
+        Serial.println("PINK");  
+        staticColor(CRGB::Fuchsia);         
         if(Serial.available()) {   
           break;                   
         }

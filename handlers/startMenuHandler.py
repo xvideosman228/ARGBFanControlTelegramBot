@@ -10,6 +10,7 @@ from serialControl import FanController
 from handlers.customPresetsMenuHandler import customPresetsMenuRouter
 import json
 
+
 with open('./config/buttons.json') as file:
     names = json.load(file)
 
@@ -63,6 +64,16 @@ async def modeminus(message: Message):
 
 
 
+async def color(message):
+    colourIndex = int(list(names["colors"]["basicColors"].values()).index(message.text))
+    logger.info(f"Кнопка {message.text.capitalize()} нажата")
+    colour = list(names["colors"]["basicColors"].keys())[colourIndex]
+    print(colour)
+    await message.answer(texts[colour])
+    FanController.color(colour.upper())
+
+
+
 
 @exception
 @startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["startButtons"]["strength++"])
@@ -103,88 +114,6 @@ async def brightnessminusminus(message: Message):
     await message.answer(texts["brightness--"])
 
 @exception
-@startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["colors"]["basicColors"]["red"])
-async def red(message: Message):
-    logger.info("Кнопка Red нажата")
-    await message.answer(texts["red"])
-    FanController.red()
-
-
-@exception
-@startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["colors"]["basicColors"]["green"])
-async def green(message: Message):
-    logger.info("Кнопка Green нажата")
-    await message.answer(texts["green"])
-    FanController.green()
-
-
-@exception
-@startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["colors"]["basicColors"]["blue"])
-async def blue(message: Message):
-    logger.info("Кнопка Blue нажата")
-    await message.answer(texts["blue"])
-    FanController.blue()
-
-
-@exception
-@startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["colors"]["basicColors"]["yellow"])
-async def yellow(message: Message):
-    logger.info("Кнопка Yellow нажата")
-    await message.answer(texts["yellow"])
-    FanController.yellow()
-
-@exception
-@startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["colors"]["basicColors"]["orange"])
-async def orange(message: Message):
-    logger.info("Кнопка Orange нажата")
-    await message.answer(texts["orange"])
-    FanController.orange()
-
-@exception
-@startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["colors"]["basicColors"]["yelloworange"])
-async def yelloworange(message: Message):
-    logger.info("Кнопка YellowOrange нажата")
-    await message.answer(texts["yelloworange"])
-    FanController.yelloworange()
-
-@exception
-@startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["colors"]["basicColors"]["orangered"])
-async def orangered(message: Message):
-    logger.info("Кнопка OrangeRed нажата")
-    await message.answer(texts["orangered"])
-    FanController.orangered()
-
-@exception
-@startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["colors"]["basicColors"]["lightblue"])
-async def lightblue(message: Message):
-    logger.info("Кнопка Lightblue нажата")
-    await message.answer(texts["lightblue"])
-    FanController.lightblue()
-
-
-@exception
-@startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["colors"]["basicColors"]["darkblue"])
-async def darkblue(message: Message):
-    logger.info("Кнопка Darkblue нажата")
-    await message.answer(texts["darkblue"])
-    FanController.darkblue()
-
-@exception
-@startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["colors"]["basicColors"]["violet"])
-async def violet(message: Message):
-    logger.info("Кнопка Violet нажата")
-    await message.answer(texts["violet"])
-    FanController.violet()
-
-
-@exception
-@startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["colors"]["basicColors"]["white"])
-async def white(message: Message):
-    logger.info("Кнопка White нажата")
-    await message.answer(texts["white"])
-    FanController.white()
-
-@exception
 @startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["colors"]["basicColors"]["black"])
 async def black(message: Message):
     logger.info("Кнопка Black нажата")
@@ -208,7 +137,9 @@ async def back(message: Message, state: FSMContext):
 @exception
 @startMenuRouter.message(StateFilter(StateMachine.START), F.text)
 async def default(message: Message, state: FSMContext):
-    logger.info(f"Пользователь {message.from_user.id} чёто непонятное сказал")
+    if message.text in list(names["colors"]["basicColors"].values()):
+        await color(message)
+    # logger.info(f"Пользователь {message.from_user.id} чёто сказал")
     await state.set_state(StateMachine.START)
     await message.answer(texts['iDidNotFuckingUnderstandYouStupidMoron'], reply_markup=startKeyboard)
 
