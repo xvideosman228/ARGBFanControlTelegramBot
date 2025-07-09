@@ -22,21 +22,21 @@ gradientRouter = Router()
 async def colorPick(message: Message, state: FSMContext):
     colorIndex = int(list(names["colors"]["basicColors"].values()).index(message.text))
     color = list(names["colors"]["basicColors"].keys())[colorIndex]
-    logger.info(f"Выбран {color.capitalize()} для Fade In / Out")
+    logger.info(f"Выбран {color.capitalize()} для Gradient")
 
     await state.update_data(GRADIENT_COLOR_1=f"{color.upper()}")
     await state.set_state(StateMachine.GRADIENT_2)
-    await message.answer(names["colors"]["basicColors"][f"{color}"] + ' для ' + names["custom"]["gradient"], reply_markup=colorKeyboard)
+    await message.answer(names["colors"]["basicColors"][f"{color}"] + ' установлен в качестве первого цвета для ' + names["custom"]["gradient"] + '\nВыбери второй', reply_markup=colorKeyboard)
 
 @exception
 @gradientRouter.message(StateFilter(StateMachine.GRADIENT_2), F.text.in_(names["colors"]["basicColors"].values()))
 async def colorPick(message: Message, state: FSMContext):
     colorIndex = int(list(names["colors"]["basicColors"].values()).index(message.text))
     color = list(names["colors"]["basicColors"].keys())[colorIndex]
-    logger.info(f"Выбран {color.capitalize()} для Fade In / Out")
+    logger.info(f"Выбран {color.capitalize()} для Gradient")
 
     await state.update_data(GRADIENT_COLOR_2=f"{color.upper()}")
     await state.set_state(StateMachine.CUSTOM_PRESETS)
-    await message.answer(names["colors"]["basicColors"][f"{color}"] + ' для ' + names["custom"]["gradient"], reply_markup=customPresetsKeyboard)
+    await message.answer(names["colors"]["basicColors"][f"{color}"] + ' установлен в качестве второго цвета для ' + names["custom"]["gradient"], reply_markup=customPresetsKeyboard)
     color = await state.get_data()
     FanController.gradient(f'{color["GRADIENT_COLOR_1"]}', f'{color["GRADIENT_COLOR_2"]}')

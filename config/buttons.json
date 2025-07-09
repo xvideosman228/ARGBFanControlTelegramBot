@@ -48,7 +48,8 @@
     "colorwipe": "Color Wipe",
     "rainbow": "Rainbow Circle",
     "pacific": "Pacific",
-    "gradient": "Градиент"
+    "gradient": "Gradient",
+    "smoothGradient": "Smooth Gradient"
   },
   "times":
   {

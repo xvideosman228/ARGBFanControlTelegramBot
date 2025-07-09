@@ -19,7 +19,7 @@ void setup() {
           // Задержка перед инициализацией, позволяет подключить монитор порт
   Serial.begin(9600);     // Начинаем работу последовательного порта
 }
-void fill_gradient_RGB(CRGB *leds, uint16_t num_leds, const CRGB &start_color, const CRGB &end_color)
+void fill_smooth_gradient_RGB(CRGB *leds, uint16_t num_leds, const CRGB &start_color, const CRGB &end_color)
 {
     for(uint16_t i = 0; i < num_leds; ++i) {
         float t = static_cast<float>(i) / (num_leds - 1); // Параметр перехода от 0 до 1
@@ -31,6 +31,25 @@ void fill_gradient_RGB(CRGB *leds, uint16_t num_leds, const CRGB &start_color, c
         
         leds[i].setRGB(r, g, b); // Установка нового цвета
     }
+    FastLED.show();
+}
+
+void fill_gradient_RGB(CRGB *leds, uint16_t num_leds, const CRGB &start_color, const CRGB &end_color)
+{
+    // Разделяем светодиоды на две равные части
+    uint16_t mid_point = num_leds / 2;
+    
+    // Заполняем левую половину первым цветом
+    for(uint16_t i = 0; i < mid_point; ++i) {
+        leds[i] = start_color;
+    }
+    
+    // Заполняем правую половину вторым цветом
+    for(uint16_t i = mid_point; i < num_leds; ++i) {
+        leds[i] = end_color;
+    }
+    
+    // Обновляем состояние светодиодов
     FastLED.show();
 }
 
@@ -283,6 +302,31 @@ void loop() {
       {   
         Serial.println("GRADIENT " + color1 + " " + color2);  
         fill_gradient_RGB(leds,NUM,colorPick(color1), colorPick(color2));         
+        if(Serial.available()) 
+        {   
+          break;                   
+        }
+      }
+      }
+
+      else if(cmd == "SMOOTHGRADIENT")
+      {
+      Serial.println("SMOOTHGRADIENT");
+      int firstSpace = command.indexOf(' ');
+      int secondSpace = command.indexOf(' ', firstSpace+1);
+      
+      // получаем строки цветов без лишнего пробела между ними
+      String color1 = command.substring(firstSpace + 1, secondSpace);
+      String color2 = command.substring(secondSpace + 1);
+
+      // Удаляем пробельные символы вручную
+      color1.trim();
+      color2.trim();
+
+      while(true) 
+      {   
+        Serial.println("SMOOTHGRADIENT " + color1 + " " + color2);  
+        fill_smooth_gradient_RGB(leds,NUM,colorPick(color1), colorPick(color2));         
         if(Serial.available()) 
         {   
           break;                   

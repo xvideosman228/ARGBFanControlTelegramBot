@@ -19,3 +19,8 @@ class StateMachine(StatesGroup):
     GRADIENT_2 = State()
     GRADIENT_COLOR_1 = State()
     GRADIENT_COLOR_2 = State()
+
+    SMOOTH_GRADIENT_1 = State()
+    SMOOTH_GRADIENT_2 = State()
+    SMOOTH_GRADIENT_COLOR_1 = State()
+    SMOOTH_GRADIENT_COLOR_2 = State()
