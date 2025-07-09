@@ -185,7 +185,7 @@ async def white(message: Message):
     FanController.white()
 
 @exception
-@startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["colors"]["black"])
+@startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["colors"]["basicColors"]["black"])
 async def black(message: Message):
     logger.info("Кнопка Black нажата")
     await message.answer(texts["black"])

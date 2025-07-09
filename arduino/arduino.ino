@@ -42,7 +42,7 @@ CRGB colorPick(const String color)
 
   else if(color == "WHITE"){return CRGB::Snow;}
   else if(color == "BLUE"){return CRGB::Blue;}
-  
+  else if(color == "BLACK"){return CRGB::Black;}
 }
 
 // Очистка всех светодиодов
