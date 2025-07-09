@@ -84,9 +84,9 @@ class FanController:
         time.sleep(1)
 
     @staticmethod
-    def fadeinout(color):
+    def fadeinout(color, time):
         logger.info("Отправлен сигнал BLACK на Arduino")
-        arduino.write(b'FADEINOUT' + b' ' + color.encode('utf-8'))
+        arduino.write(f'FADEINOUT {color} {time}'.encode('utf-8'))
         time.sleep(1)
 
     @staticmethod

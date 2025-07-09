@@ -23,7 +23,7 @@ async def colorPick(message: Message, state: FSMContext):
     colorIndex = int(list(names["colors"]["basicColors"].values()).index(message.text))
     color = list(names["colors"]["basicColors"].keys())[colorIndex]
     logger.info(f"Выбран {color.capitalize()} для Color Wipe")
-    await state.update_data(COLOR_1=f"{color.upper()}")
+    await state.update_data(COLOR_1_COLOR_WIPE=f"{color.upper()}")
     await state.set_state(StateMachine.COLOR_WIPE_2)
     await message.answer(names["colors"]["basicColors"][f"{color}"] + ' установлен в качестве первого цвета для ' + (names["custom"]["colorwipe"]) + '\nВыбери второй')
 
@@ -32,11 +32,11 @@ async def colorPick(message: Message, state: FSMContext):
 async def colorPick(message: Message, state: FSMContext):
     colorIndex = int(list(names["colors"]["basicColors"].values()).index(message.text))
     color = list(names["colors"]["basicColors"].keys())[colorIndex]
-    logger.info("Выбран Red для Color Wipe 2")
+    logger.info(f"Выбран {color.capitalize()} для Color Wipe 2")
     await message.answer(names["colors"]["basicColors"][f"{color}"] + ' установлен в качестве второго цвета для ' + (names["custom"]["colorwipe"]))
     color1 = await state.get_data()
     await state.set_state(StateMachine.CUSTOM_PRESETS)
-    FanController.colorwipe(color1["COLOR_1"], f'{color.upper()}')
+    FanController.colorwipe(color1["COLOR_1_COLOR_WIPE"], f'{color.upper()}')
 
 
 

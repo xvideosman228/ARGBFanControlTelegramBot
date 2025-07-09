@@ -46,10 +46,20 @@ def generateColorKeyboard():
 
     return builder.as_markup()
 
+def generateTimeKeyboard():
+    builder = ReplyKeyboardBuilder()
+    buttons = [x for x in names["times"].values()]
+    for button in buttons:
+        builder.button(text=button)
+    builder.button(text='⬅️ Назад')
+    builder.adjust(5,5, 1)
+
+    return builder.as_markup()
+
 colorKeyboard = generateColorKeyboard()
 startKeyboard = generateStartKeyboard()
 customPresetsKeyboard = generateCustomPresetsKeyboard()
-
+timeKeyboard = generateTimeKeyboard()
 
 backKeyboard = ReplyKeyboard(keyboard=[[Back()]])
 

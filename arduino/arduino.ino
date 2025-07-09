@@ -44,6 +44,20 @@ CRGB colorPick(const String color)
   else if(color == "BLUE"){return CRGB::Blue;}
   else if(color == "BLACK"){return CRGB::Black;}
 }
+int times(String time)
+{
+  if(time == "50MS"){return 50;}
+  else if(time == "100MS"){return 100;}
+  else if(time == "200MS"){return 200;}
+  else if(time == "250MS"){return 250;}
+  else if(time == "500MS"){return 500;}
+  else if(time == "1S"){return 1000;}
+  else if(time == "2S"){return 2000;}
+  else if(time == "5S"){return 5000;}
+  else if(time == "10S"){return 10000;}
+  else if(time == "30S"){return 30000;}
+
+}
 
 // Очистка всех светодиодов
 
@@ -209,12 +223,22 @@ void loop() {
     else if(cmd == "FADEINOUT") 
     {          
       Serial.println("FADE IN & OUT");
-      String color = command.substring(command.indexOf(' ') + 1, -1);
-      Serial.println(color);
+      int firstSpace = command.indexOf(' ');
+      int secondSpace = command.indexOf(' ', firstSpace+1);
+      
+      // получаем строки цветов без лишнего пробела между ними
+      String color = command.substring(firstSpace + 1, secondSpace);
+      String time = command.substring(secondSpace + 1);
+
+      // Удаляем пробельные символы вручную
+      color.trim();
+      time.trim();
+
+      Serial.println(time);
       while(true) 
       {   
         Serial.println("FADE IN & OUT " + color);  
-        FadeInOut(colorPick(color));         
+        FadeInOut(colorPick(color), times(time));         
         if(Serial.available()) 
         {   
           break;                   
@@ -354,30 +378,39 @@ void colorWipe(CRGB color, int SpeedDelay)
   }
 }
 
-void FadeInOut(CRGB color){
+void FadeInOut(CRGB color, unsigned long fadeTime)
+{
   uint8_t red = color.r;
   uint8_t green = color.g;
   uint8_t blue = color.b;
-  float r, g, b;
-     
-  for(int k = 0; k < 256; k=k+1) {
-    r = (k/256.0)*red;
-    g = (k/256.0)*green;
-    b = (k/256.0)*blue;
-    setAll(r,g,b);
-    showStrip();
+    
+  // Вычисляем количество шагов и задержку на каждый шаг
+  int steps = 256;            // Число шагов градации яркости
+  float stepDelay = ((float)fadeTime / steps); // Задержка каждого шага в миллисекундах
+
+  // Плавная настройка яркости от нуля до максимума
+  for(int k = 0; k <= steps; k++) {
+    float ratio = (float)k/steps;
+    uint8_t r = round(red * ratio);
+    uint8_t g = round(green * ratio);
+    uint8_t b = round(blue * ratio);
+    fill_solid(leds, NUM, CRGB(r, g, b));
+    FastLED.show();           // Обновление ленты
+    delay(stepDelay);         // Пауза перед следующим шагом
   }
-     
-  for(int k = 255; k >= 0; k=k-2) {
-    if(Serial.available()) 
-    {   
+
+  // Постепенное снижение яркости обратно до нуля
+  for(int k = steps; k >= 0; k--) {
+    if(Serial.available())
       break;
-    }
-    r = (k/256.0)*red;
-    g = (k/256.0)*green;
-    b = (k/256.0)*blue;
-    setAll(r,g,b);
-    showStrip();
+      
+    float ratio = (float)k/steps;
+    uint8_t r = round(red * ratio);
+    uint8_t g = round(green * ratio);
+    uint8_t b = round(blue * ratio);
+    fill_solid(leds, NUM, CRGB(r, g, b));
+    FastLED.show();           // Обновление ленты
+    delay(stepDelay);         // Пауза перед следующим шагом
   }
 }
 
