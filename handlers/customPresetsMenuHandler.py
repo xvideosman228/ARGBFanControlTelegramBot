@@ -5,6 +5,7 @@ from aiogram.types import Message
 from aiogram.filters import or_f
 from handlers.colorWipeHandler import colorWipeRouter
 from handlers.fadeInOutHandler import fadeInOutRouter
+from handlers.gradientHandler import gradientRouter
 from keyboard import customPresetsKeyboard, colorKeyboard
 from serialControl import FanController
 from stateMachine import StateMachine
@@ -18,7 +19,7 @@ with open('./config/texts.json') as file:
     texts = json.load(file)
 
 customPresetsMenuRouter = Router()
-customPresetsMenuRouter.include_routers(fadeInOutRouter, colorWipeRouter)
+customPresetsMenuRouter.include_routers(fadeInOutRouter, colorWipeRouter, gradientRouter)
 
 
 @exception
@@ -54,6 +55,13 @@ async def runninglight(message: Message):
     logger.info("Кнопка Runnung Lights нажата")
     await message.answer(texts["runninglights"])
     FanController.runninglight()
+
+@exception
+@customPresetsMenuRouter.message(StateFilter(StateMachine.CUSTOM_PRESETS), F.text == names["custom"]["gradient"])
+async def gradient(message: Message, state: FSMContext):
+    logger.info("Кнопка Gradient нажата")
+    await state.set_state(StateMachine.GRADIENT_1)
+    await message.answer(texts["gradient"], reply_markup=colorKeyboard)
 
 @exception
 @customPresetsMenuRouter.message(StateFilter(StateMachine.CUSTOM_PRESETS), F.text == names["custom"]["cylon"])

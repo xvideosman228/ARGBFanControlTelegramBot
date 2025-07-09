@@ -14,3 +14,8 @@ class StateMachine(StatesGroup):
     COLOR_WIPE_1 = State()
     COLOR_WIPE_2 = State()
     COLOR_WIPE_TIME = State()
+
+    GRADIENT_1 = State()
+    GRADIENT_2 = State()
+    GRADIENT_COLOR_1 = State()
+    GRADIENT_COLOR_2 = State()

@@ -13,11 +13,25 @@ CRGB leds[NUM];       // Массив для хранения состояния
 
 void setup() {
   delay(2000);
-  FastLED.addLeds<WS2811, PIN, GRB>(leds, NUM).setCorrection( TypicalLEDStrip);
+  FastLED.addLeds<WS2812B, PIN, GRB>(leds, NUM).setCorrection( TypicalLEDStrip);
 
   
           // Задержка перед инициализацией, позволяет подключить монитор порт
   Serial.begin(9600);     // Начинаем работу последовательного порта
+}
+void fill_gradient_RGB(CRGB *leds, uint16_t num_leds, const CRGB &start_color, const CRGB &end_color)
+{
+    for(uint16_t i = 0; i < num_leds; ++i) {
+        float t = static_cast<float>(i) / (num_leds - 1); // Параметр перехода от 0 до 1
+        
+        // Линейная интерполяция каждого компонента цвета
+        byte r = start_color.r + (end_color.r - start_color.r) * t;
+        byte g = start_color.g + (end_color.g - start_color.g) * t;
+        byte b = start_color.b + (end_color.b - start_color.b) * t;
+        
+        leds[i].setRGB(r, g, b); // Установка нового цвета
+    }
+    FastLED.show();
 }
 
 // Функция для показа стандартной анимации Pride 2015
@@ -97,6 +111,7 @@ void loop() {
       while(true) {     
         Serial.println("RED");            
         staticColor(CRGB::Red);
+        //fill_gradient_RGB(leds, NUM, CRGB::Orange, CRGB::White);
         if(Serial.available()) {   
           break;                   
         }
@@ -249,40 +264,68 @@ void loop() {
         }
       }
     }
-else if(cmd == "COLORWIPE")
-{
-    // находим позиции первых двух пробелов
-    int firstSpace = command.indexOf(' ');
-    int secondSpace = command.indexOf(' ', firstSpace+1);
-    int thirdSpace = command.indexOf(' ', secondSpace+1);
 
-    // получаем строки цветов без лишнего пробела между ними
-    String color1 = command.substring(firstSpace + 1, secondSpace);
-    String color2 = command.substring(secondSpace + 1, thirdSpace);
-    String time = command.substring(thirdSpace + 1);
+    else if(cmd == "GRADIENT")
+      {
+      Serial.println("GRADIENT");
+      int firstSpace = command.indexOf(' ');
+      int secondSpace = command.indexOf(' ', firstSpace+1);
+      
+      // получаем строки цветов без лишнего пробела между ними
+      String color1 = command.substring(firstSpace + 1, secondSpace);
+      String color2 = command.substring(secondSpace + 1);
 
-    // Удаляем пробельные символы вручную
-    color1.trim();
-    color2.trim();
-    time.trim();
+      // Удаляем пробельные символы вручную
+      color1.trim();
+      color2.trim();
 
-    CRGB c1 = colorPick(color1);
-    CRGB c2 = colorPick(color2);
-    int timer = times(time);
-
-    Serial.println("COLORWIPE " + color1 + " " + color2 + " " + time);   // добавьте пробел между цветами для ясности вывода
-
-    while(true) {
-        Serial.println(c1.r);
-        Serial.println(color2);
-        colorWipe(c1, timer);
-        colorWipe(c2, timer);
-        
-        if(Serial.available()) {
-            break;
+      while(true) 
+      {   
+        Serial.println("GRADIENT " + color1 + " " + color2);  
+        fill_gradient_RGB(leds,NUM,colorPick(color1), colorPick(color2));         
+        if(Serial.available()) 
+        {   
+          break;                   
         }
-    }
-}
+      }
+      }
+
+    /*fill_gradient_RGB(leds, NUM, CRGB::Red, CRGB::Black);
+        FastLED.show();*/
+      else if(cmd == "COLORWIPE")
+      {
+          // находим позиции первых двух пробелов
+          int firstSpace = command.indexOf(' ');
+          int secondSpace = command.indexOf(' ', firstSpace+1);
+          int thirdSpace = command.indexOf(' ', secondSpace+1);
+
+          // получаем строки цветов без лишнего пробела между ними
+          String color1 = command.substring(firstSpace + 1, secondSpace);
+          String color2 = command.substring(secondSpace + 1, thirdSpace);
+          String time = command.substring(thirdSpace + 1);
+
+          // Удаляем пробельные символы вручную
+          color1.trim();
+          color2.trim();
+          time.trim();
+
+          CRGB c1 = colorPick(color1);
+          CRGB c2 = colorPick(color2);
+          int timer = times(time);
+
+          Serial.println("COLORWIPE " + color1 + " " + color2 + " " + time);   // добавьте пробел между цветами для ясности вывода
+
+          while(true) {
+              Serial.println(c1.r);
+              Serial.println(color2);
+              colorWipe(c1, timer);
+              colorWipe(c2, timer);
+              
+              if(Serial.available()) {
+                  break;
+              }
+          }
+      }
 
     // 
     else if(command == "RAINBOW") 
