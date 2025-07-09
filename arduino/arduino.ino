@@ -26,7 +26,7 @@ void showPride() {
   FastLED.show();
 }
 
-CRGB colorPick(const String& color)
+CRGB colorPick(const String color)
 {
   if(color == "RED"){return CRGB::Red;}
   else if(color == "ORANGE"){return CRGB::DarkOrange;}
@@ -42,7 +42,7 @@ CRGB colorPick(const String& color)
 
   else if(color == "WHITE"){return CRGB::Snow;}
   else if(color == "BLUE"){return CRGB::Blue;}
-
+  
 }
 
 // Очистка всех светодиодов
@@ -221,23 +221,37 @@ void loop() {
         }
       }
     }
+else if(cmd == "COLORWIPE")
+{
+    // находим позиции первых двух пробелов
+    int firstSpace = command.indexOf(' ');
+    int secondSpace = command.indexOf(' ', firstSpace+1);
+    
+    // получаем строки цветов без лишнего пробела между ними
+    String color1 = command.substring(firstSpace + 1, secondSpace);
+    String color2 = command.substring(secondSpace + 1);
 
-    else if(cmd == "COLORWIPE") 
-    {          
+    // Удаляем пробельные символы вручную
+    color1.trim();
+    color2.trim();
 
-      int firstSpace = command.indexOf(' ') + 1;
-      int secondSpace = command.indexOf(' ', firstSpace) + 1;
-      String color1 = command.substring(firstSpace, secondSpace);
-      String color2 = command.substring(secondSpace);
-      while(true) {     
-        Serial.println("COLORWIPE " + color1 + color2);   
-        colorWipe(colorPick(color1), 50);
-        colorWipe(colorPick(color2), 50);     
-        if(Serial.available()) {   
-          break;                   
+    CRGB c1 = colorPick(color1);
+    CRGB c2 = colorPick(color2);
+
+    Serial.println("COLORWIPE " + color1 + " " + color2);   // добавьте пробел между цветами для ясности вывода
+
+    while(true) {
+        Serial.println(c1.r);
+        Serial.println(color2);
+        colorWipe(c2, 50);
+        colorWipe(c1, 50);
+        
+        if(Serial.available()) {
+            break;
         }
-      }
     }
+}
+
     // 
     else if(command == "RAINBOW") 
     {          

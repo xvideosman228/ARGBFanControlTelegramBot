@@ -17,38 +17,6 @@ with open('./config/texts.json') as file:
 
 colorWipeRouter = Router()
 
-
-'''
-@exception
-@colorWipeRouter.message(StateFilter(StateMachine.COLOR_WIPE_1), F.text == names["colors"]["basicColors"]["red"])
-async def red(message: Message, state: FSMContext):
-    logger.info("Выбран Red для Color Wipe")
-    await state.update_data({StateMachine.COLOR_1:"red"})
-    await message.answer(names["colors"]["basicColors"]["red"] + ' для ' + names["custom"]["colorwipe"])
-    for x in names["colors"]["basicColors"]:
-        print(f"""
-@exception
-@colorWipeRouter.message(StateFilter(StateMachine.COLOR_WIPE_2), F.text == names["colors"]["basicColors"]["{x}"])
-async def {x}(message: Message, state: FSMContext):
-    logger.info("Выбран {x.capitalize()} для Color Wipe 2")
-    await message.answer(names["colors"]["basicColors"]["{x}"] + ' для ' + names["custom"]["colorwipe"])
-    color1 = await state.get_data()
-    FanController.colorwipe(color1["COLOR_1"], '{x.upper()}')
-    """)
-
-
-
-@exception
-@colorWipeRouter.message(StateFilter(StateMachine.COLOR_WIPE_1), F.text == names["colors"]["basicColors"]["red"])
-async def red(message: Message, state: FSMContext):
-    logger.info("Выбран Red для Color Wipe")
-    await state.update_data({StateMachine.COLOR_1:"red"})
-    await state.set_state(StateMachine.COLOR_WIPE_2)
-    await message.answer(names["colors"]["basicColors"]["red"] + ' для ' + names["custom"]["colorwipe"])
-
-'''
-
-
 @exception
 @colorWipeRouter.message(StateFilter(StateMachine.COLOR_WIPE_1), F.text == names["colors"]["basicColors"]["red"])
 async def red(message: Message, state: FSMContext):
@@ -148,12 +116,14 @@ async def white(message: Message, state: FSMContext):
     await state.set_state(StateMachine.COLOR_WIPE_2)
     await message.answer(names["colors"]["basicColors"]["white"] + ' для ' + names["custom"]["colorwipe"])
 
+
 @exception
 @colorWipeRouter.message(StateFilter(StateMachine.COLOR_WIPE_2), F.text == names["colors"]["basicColors"]["red"])
 async def red(message: Message, state: FSMContext):
     logger.info("Выбран Red для Color Wipe 2")
     await message.answer(names["colors"]["basicColors"]["red"] + ' для ' + names["custom"]["colorwipe"])
     color1 = await state.get_data()
+    await state.set_state(StateMachine.CUSTOM_PRESETS)
     FanController.colorwipe(color1["COLOR_1"], 'RED')
 
 
@@ -163,6 +133,7 @@ async def green(message: Message, state: FSMContext):
     logger.info("Выбран Green для Color Wipe 2")
     await message.answer(names["colors"]["basicColors"]["green"] + ' для ' + names["custom"]["colorwipe"])
     color1 = await state.get_data()
+    await state.set_state(StateMachine.CUSTOM_PRESETS)
     FanController.colorwipe(color1["COLOR_1"], 'GREEN')
 
 
@@ -172,6 +143,7 @@ async def blue(message: Message, state: FSMContext):
     logger.info("Выбран Blue для Color Wipe 2")
     await message.answer(names["colors"]["basicColors"]["blue"] + ' для ' + names["custom"]["colorwipe"])
     color1 = await state.get_data()
+    await state.set_state(StateMachine.CUSTOM_PRESETS)
     FanController.colorwipe(color1["COLOR_1"], 'BLUE')
 
 
@@ -181,6 +153,7 @@ async def yellow(message: Message, state: FSMContext):
     logger.info("Выбран Yellow для Color Wipe 2")
     await message.answer(names["colors"]["basicColors"]["yellow"] + ' для ' + names["custom"]["colorwipe"])
     color1 = await state.get_data()
+    await state.set_state(StateMachine.CUSTOM_PRESETS)
     FanController.colorwipe(color1["COLOR_1"], 'YELLOW')
 
 
@@ -191,6 +164,7 @@ async def yelloworange(message: Message, state: FSMContext):
     logger.info("Выбран Yelloworange для Color Wipe 2")
     await message.answer(names["colors"]["basicColors"]["yelloworange"] + ' для ' + names["custom"]["colorwipe"])
     color1 = await state.get_data()
+    await state.set_state(StateMachine.CUSTOM_PRESETS)
     FanController.colorwipe(color1["COLOR_1"], 'YELLOWORANGE')
 
 
@@ -200,6 +174,7 @@ async def orange(message: Message, state: FSMContext):
     logger.info("Выбран Orange для Color Wipe 2")
     await message.answer(names["colors"]["basicColors"]["orange"] + ' для ' + names["custom"]["colorwipe"])
     color1 = await state.get_data()
+    await state.set_state(StateMachine.CUSTOM_PRESETS)
     FanController.colorwipe(color1["COLOR_1"], 'ORANGE')
 
 
@@ -209,6 +184,7 @@ async def orangered(message: Message, state: FSMContext):
     logger.info("Выбран Orangered для Color Wipe 2")
     await message.answer(names["colors"]["basicColors"]["orangered"] + ' для ' + names["custom"]["colorwipe"])
     color1 = await state.get_data()
+    await state.set_state(StateMachine.CUSTOM_PRESETS)
     FanController.colorwipe(color1["COLOR_1"], 'ORANGERED')
 
 
@@ -218,6 +194,7 @@ async def lightblue(message: Message, state: FSMContext):
     logger.info("Выбран Lightblue для Color Wipe 2")
     await message.answer(names["colors"]["basicColors"]["lightblue"] + ' для ' + names["custom"]["colorwipe"])
     color1 = await state.get_data()
+    await state.set_state(StateMachine.CUSTOM_PRESETS)
     FanController.colorwipe(color1["COLOR_1"], 'LIGHTBLUE')
 
 
@@ -227,6 +204,7 @@ async def darkblue(message: Message, state: FSMContext):
     logger.info("Выбран Darkblue для Color Wipe 2")
     await message.answer(names["colors"]["basicColors"]["darkblue"] + ' для ' + names["custom"]["colorwipe"])
     color1 = await state.get_data()
+    await state.set_state(StateMachine.CUSTOM_PRESETS)
     FanController.colorwipe(color1["COLOR_1"], 'DARKBLUE')
 
 
@@ -236,6 +214,7 @@ async def violet(message: Message, state: FSMContext):
     logger.info("Выбран Violet для Color Wipe 2")
     await message.answer(names["colors"]["basicColors"]["violet"] + ' для ' + names["custom"]["colorwipe"])
     color1 = await state.get_data()
+    await state.set_state(StateMachine.CUSTOM_PRESETS)
     FanController.colorwipe(color1["COLOR_1"], 'VIOLET')
 
 
@@ -245,14 +224,8 @@ async def white(message: Message, state: FSMContext):
     logger.info("Выбран White для Color Wipe 2")
     await message.answer(names["colors"]["basicColors"]["white"] + ' для ' + names["custom"]["colorwipe"])
     color1 = await state.get_data()
+    await state.set_state(StateMachine.CUSTOM_PRESETS)
     FanController.colorwipe(color1["COLOR_1"], 'WHITE')
-
-
-@exception
-@colorWipeRouter.message(StateFilter(StateMachine.COLOR_WIPE_2))
-async def colorChoose(message: Message, state: FSMContext):
-    logger.info("Открыто меню выбора цвета для Color Wipe 2")
-    await message.answer(texts["chooseColor"], reply_markup=colorKeyboard)
 
 
 """
