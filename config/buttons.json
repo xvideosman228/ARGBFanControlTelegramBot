@@ -19,30 +19,50 @@
 
   "colors":
   {
+
     "basicColors":
     {
       "red": "\uD83D\uDD34",
       "green": "\uD83D\uDFE2",
       "blue": "\uD83D\uDD35",
+
       "yellow": "\uD83D\uDFE1",
+      "yelloworange": "\uD83D\uDFE1\uD83D\uDFE0",
       "orange": "\uD83D\uDFE0",
+
+      "orangered": "\uD83D\uDFE0\uD83D\uDD34",
       "lightblue": "⚪\uFE0F\uD83D\uDD35",
       "darkblue": "⚫\uFE0F\uD83D\uDD35",
+
       "violet": "\uD83D\uDFE3",
       "white": "⚪\uFE0F",
       "black": "⚫\uFE0F"
+    },
+
+    "titles":
+    {
+       "red": "RED",
+      "green": "GREEN",
+      "blue": "BLUE",
+      "yellow": "YELLOW",
+      "yelloworange": "YELLOWORANGE",
+      "orange": "ORANGE",
+      "orangered": "ORANGERED",
+      "lightblue": "LIGHTBLUE",
+      "darkblue": "DARKBLUE",
+      "violet": "VIOLET",
+      "white": "WHITE",
+      "black": "BLACK"
     }
+
   },
   "custom":
   {
-    "fadeinout": "плавное появление и затухание",
-    "strobe": "моргание",
-    "cylon": "cylon (хер знает что это)",
-    "twinkle": "мерцание",
-    "runninglights": "свет бежит",
-    "colorwipe": "color wipe",
-    "rainbow": "плавная радуга",
-    "fire": "\uD83D\uDD25 огонь",
-    "ocean": "\uD83C\uDF0A океан"
+    "fadeinout": "Fade in/out",
+    "cylon": "Cylon",
+    "runninglights": "Running Lights",
+    "colorwipe": "Color Wipe",
+    "rainbow": "Rainbow Circle",
+    "pacific": "Pacific"
   }
 }
