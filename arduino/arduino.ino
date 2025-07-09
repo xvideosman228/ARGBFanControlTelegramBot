@@ -19,6 +19,41 @@ void setup() {
           // Задержка перед инициализацией, позволяет подключить монитор порт
   Serial.begin(9600);     // Начинаем работу последовательного порта
 }
+
+uint8_t lerp(uint8_t a, uint8_t b, float ratio) {
+    return static_cast<uint8_t>(a + ((b - a) * ratio));
+}
+
+// Градиентная заливка LED-полосы четырьмя цветами
+void fill_gradient_RGB_4(CRGB *leds, uint16_t num_leds,
+                      const CRGB &color1, const CRGB &color2,
+                      const CRGB &color3, const CRGB &color4) {
+    // Делим полосу на три равные части (границы между цветами)
+    uint16_t interval_size = num_leds / 3;
+
+    // Устанавливаем цвета для каждой зоны отдельно
+    for (uint16_t i = 0; i < num_leds; i++) {
+        if (i < interval_size) {                     // Первая зона (цвет1 → цвет2)
+            float r = lerp(color1.r, color2.r, (float)(i % interval_size) / interval_size);
+            float g = lerp(color1.g, color2.g, (float)(i % interval_size) / interval_size);
+            float b = lerp(color1.b, color2.b, (float)(i % interval_size) / interval_size);
+            leds[i].setRGB(r, g, b);
+        } else if (i >= interval_size && i < 2 * interval_size) { // Вторая зона (цвет2 → цвет3)
+            float r = lerp(color2.r, color3.r, (float)((i - interval_size) % interval_size) / interval_size);
+            float g = lerp(color2.g, color3.g, (float)((i - interval_size) % interval_size) / interval_size);
+            float b = lerp(color2.b, color3.b, (float)((i - interval_size) % interval_size) / interval_size);
+            leds[i].setRGB(r, g, b);
+        } else {                                     // Третья зона (цвет3 → цвет4)
+            float r = lerp(color3.r, color4.r, (float)((i - 2 * interval_size) % interval_size) / interval_size);
+            float g = lerp(color3.g, color4.g, (float)((i - 2 * interval_size) % interval_size) / interval_size);
+            float b = lerp(color3.b, color4.b, (float)((i - 2 * interval_size) % interval_size) / interval_size);
+            leds[i].setRGB(r, g, b);
+        }
+    }
+
+    // Отображаем изменения на полосе
+    FastLED.show();
+}
 void fill_smooth_gradient_RGB(CRGB *leds, uint16_t num_leds, const CRGB &start_color, const CRGB &end_color)
 {
     for(uint16_t i = 0; i < num_leds; ++i) {
@@ -129,8 +164,8 @@ void loop() {
     {          
       while(true) {     
         Serial.println("RED");            
-        staticColor(CRGB::Red);
-        //fill_gradient_RGB(leds, NUM, CRGB::Orange, CRGB::White);
+        //staticColor(CRGB::Red);
+        fill_gradient_RGB_4(leds, NUM, CRGB::Red, CRGB::White, CRGB::Red, CRGB::White);
         if(Serial.available()) {   
           break;                   
         }
@@ -302,6 +337,35 @@ void loop() {
       {   
         Serial.println("GRADIENT " + color1 + " " + color2);  
         fill_gradient_RGB(leds,NUM,colorPick(color1), colorPick(color2));         
+        if(Serial.available()) 
+        {   
+          break;                   
+        }
+      }
+      }
+    
+    else if(cmd == "GRADIENT4")
+      {
+      int firstSpace = command.indexOf(' ');
+      int secondSpace = command.indexOf(' ', firstSpace+1);
+      int thirdSpace = command.indexOf(' ', secondSpace+1);
+      int fourthSpace = command.indexOf(' ', thirdSpace+1);
+      // получаем строки цветов без лишнего пробела между ними
+      String color1 = command.substring(firstSpace + 1, secondSpace);
+      String color2 = command.substring(secondSpace + 1, thirdSpace);
+      String color3 = command.substring(thirdSpace + 1, fourthSpace);
+      String color4 = command.substring(fourthSpace + 1);
+
+      // Удаляем пробельные символы вручную
+      color1.trim();
+      color2.trim();
+      color3.trim();
+      color4.trim();
+      while(true) 
+
+      {   
+        Serial.println("GRADIENT4 " + color1 + " " + color2 + " " + color3 + " " + color4);  
+        fill_gradient_RGB_4(leds,NUM,colorPick(color1), colorPick(color2), colorPick(color3), colorPick(color4));         
         if(Serial.available()) 
         {   
           break;                   

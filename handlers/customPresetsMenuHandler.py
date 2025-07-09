@@ -5,6 +5,7 @@ from aiogram.types import Message
 from aiogram.filters import or_f
 from handlers.colorWipeHandler import colorWipeRouter
 from handlers.fadeInOutHandler import fadeInOutRouter
+from handlers.gradient4Handler import gradient4Router
 from handlers.gradientHandler import gradientRouter
 from handlers.smoothGradientHandler import smoothGradientRouter
 from keyboard import customPresetsKeyboard, colorKeyboard
@@ -20,7 +21,7 @@ with open('./config/texts.json') as file:
     texts = json.load(file)
 
 customPresetsMenuRouter = Router()
-customPresetsMenuRouter.include_routers(fadeInOutRouter, colorWipeRouter, gradientRouter, smoothGradientRouter)
+customPresetsMenuRouter.include_routers(fadeInOutRouter, colorWipeRouter, gradientRouter, smoothGradientRouter, gradient4Router)
 
 
 @exception
@@ -65,6 +66,13 @@ async def gradient(message: Message, state: FSMContext):
     await message.answer(texts["gradient"], reply_markup=colorKeyboard)
 
 @exception
+@customPresetsMenuRouter.message(StateFilter(StateMachine.CUSTOM_PRESETS), F.text == names["custom"]["gradient4"])
+async def gradient4(message: Message, state: FSMContext):
+    logger.info("Кнопка Gradient4 нажата")
+    await state.set_state(StateMachine.GRADIENT4_1)
+    await message.answer(texts["gradient4"], reply_markup=colorKeyboard)
+
+@exception
 @customPresetsMenuRouter.message(StateFilter(StateMachine.CUSTOM_PRESETS), F.text == names["custom"]["smoothGradient"])
 async def smoothGradient(message: Message, state: FSMContext):
     logger.info("Кнопка Smooth Gradient нажата")
@@ -100,7 +108,11 @@ states = (
     StateMachine.SMOOTH_GRADIENT_2,
     StateMachine.COLOR_WIPE_1,
     StateMachine.COLOR_WIPE_2,
-    StateMachine.COLOR_WIPE_TIME
+    StateMachine.COLOR_WIPE_TIME,
+    StateMachine.GRADIENT4_1,
+    StateMachine.GRADIENT4_2,
+    StateMachine.GRADIENT4_3,
+    StateMachine.GRADIENT4_4
 )
 @exception
 @customPresetsMenuRouter.message(or_f(StateFilter(*states)), F.text == names["back"])

@@ -104,6 +104,13 @@ class FanController:
         time.sleep(1)
 
     @staticmethod
+    def gradient4(color1, color2, color3, color4):
+        logger.info("Отправлен сигнал BLACK на Arduino")
+        print(f'GRADIENT4 {color1} {color2} {color3} {color4}')
+        arduino.write(f'GRADIENT4 {color1} {color2} {color3} {color4}'.encode("utf-8"))
+        time.sleep(1)
+
+    @staticmethod
     def smoothGradient(color1, color2):
         logger.info("Отправлен сигнал BLACK на Arduino")
         print(f'SMOOTHGRADIENT {color1} {color2}')
