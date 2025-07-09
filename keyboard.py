@@ -45,7 +45,7 @@ def generatePreinstalledGradient4Keyboard():
         builder.button(text=button)
     builder.button(text=names["make"])
     builder.button(text='⬅️ Назад')
-    builder.adjust( 2, 1, 1)
+    builder.adjust( 3,3, 1, 1)
 
     return builder.as_markup()
 
