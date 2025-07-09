@@ -37,22 +37,6 @@
       "violet": "\uD83D\uDFE3",
       "white": "⚪\uFE0F",
       "black": "⚫\uFE0F"
-    },
-
-    "titles":
-    {
-       "red": "RED",
-      "green": "GREEN",
-      "blue": "BLUE",
-      "yellow": "YELLOW",
-      "yelloworange": "YELLOWORANGE",
-      "orange": "ORANGE",
-      "orangered": "ORANGERED",
-      "lightblue": "LIGHTBLUE",
-      "darkblue": "DARKBLUE",
-      "violet": "VIOLET",
-      "white": "WHITE",
-      "black": "BLACK"
     }
 
   },
@@ -64,5 +48,20 @@
     "colorwipe": "Color Wipe",
     "rainbow": "Rainbow Circle",
     "pacific": "Pacific"
+  },
+  "times":
+  {
+    "50ms": "50 мс",
+    "100ms": "100 мс",
+    "200ms": "200 мс",
+    "250ms": "250 мс",
+    "500ms": "500 мс",
+
+    "1s": "1 с",
+    "2s": "2 с",
+    "5s": "5 с",
+    "10s": "10 с",
+    "30s": "30 с"
+
   }
 }
