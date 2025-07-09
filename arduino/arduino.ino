@@ -45,8 +45,12 @@ CRGB colorPick(const String color)
   else if(color == "BLACK"){return CRGB::Black;}
 }
 int times(String time)
-{
-  if(time == "50MS"){return 50;}
+{ 
+  if(time == "5MS"){return 5;}
+  else if(time == "10MS"){return 10;}
+  else if(time == "20MS"){return 20;}
+  else if(time == "25MS"){return 25;}
+  else if(time == "50MS"){return 50;}
   else if(time == "100MS"){return 100;}
   else if(time == "200MS"){return 200;}
   else if(time == "250MS"){return 250;}
@@ -250,25 +254,29 @@ else if(cmd == "COLORWIPE")
     // находим позиции первых двух пробелов
     int firstSpace = command.indexOf(' ');
     int secondSpace = command.indexOf(' ', firstSpace+1);
-    
+    int thirdSpace = command.indexOf(' ', secondSpace+1);
+
     // получаем строки цветов без лишнего пробела между ними
     String color1 = command.substring(firstSpace + 1, secondSpace);
-    String color2 = command.substring(secondSpace + 1);
+    String color2 = command.substring(secondSpace + 1, thirdSpace);
+    String time = command.substring(thirdSpace + 1);
 
     // Удаляем пробельные символы вручную
     color1.trim();
     color2.trim();
+    time.trim();
 
     CRGB c1 = colorPick(color1);
     CRGB c2 = colorPick(color2);
+    int timer = times(time);
 
-    Serial.println("COLORWIPE " + color1 + " " + color2);   // добавьте пробел между цветами для ясности вывода
+    Serial.println("COLORWIPE " + color1 + " " + color2 + " " + time);   // добавьте пробел между цветами для ясности вывода
 
     while(true) {
         Serial.println(c1.r);
         Serial.println(color2);
-        colorWipe(c2, 50);
-        colorWipe(c1, 50);
+        colorWipe(c1, timer);
+        colorWipe(c2, timer);
         
         if(Serial.available()) {
             break;

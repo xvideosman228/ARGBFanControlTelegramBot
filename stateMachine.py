@@ -10,5 +10,7 @@ class StateMachine(StatesGroup):
     FADE_IN_OUT = State()
 
     COLOR_1_COLOR_WIPE = State()
+    COLOR_2_COLOR_WIPE = State()
     COLOR_WIPE_1 = State()
     COLOR_WIPE_2 = State()
+    COLOR_WIPE_TIME = State()
