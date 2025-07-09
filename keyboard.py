@@ -31,7 +31,7 @@ def generateCustomPresetsKeyboard():
     for button in buttons:
         builder.button(text=button)
     builder.button(text='⬅️ Назад')
-    builder.adjust(3,3,3,1)
+    builder.adjust(3,3,2,1)
 
     return builder.as_markup()
 
@@ -62,7 +62,7 @@ def generateShortTimeKeyboard():
     for button in buttons:
         builder.button(text=button)
     builder.button(text='⬅️ Назад')
-    builder.adjust(3,3,2, 1)
+    builder.adjust(3,3,3, 1)
 
     return builder.as_markup()
 

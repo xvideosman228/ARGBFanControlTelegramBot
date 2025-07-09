@@ -91,11 +91,22 @@ async def default(message: Message, state: FSMContext):
     logger.info(f"Пользователь {message.from_user.id} чёто непонятное сказал")
     await message.answer(texts['iDidNotFuckingUnderstandYouStupidMoron'], reply_markup=customPresetsKeyboard)
 
+
+states = (
+    StateMachine.FADE_IN_OUT,
+    StateMachine.GRADIENT_1,
+    StateMachine.GRADIENT_2,
+    StateMachine.SMOOTH_GRADIENT_1,
+    StateMachine.SMOOTH_GRADIENT_2,
+    StateMachine.COLOR_WIPE_1,
+    StateMachine.COLOR_WIPE_2,
+    StateMachine.COLOR_WIPE_TIME
+)
 @exception
-@customPresetsMenuRouter.message(or_f(StateFilter(StateMachine.FADE_IN_OUT), StateFilter(StateMachine.COLOR_WIPE_1)),F.text == names["back"])
+@customPresetsMenuRouter.message(or_f(StateFilter(*states)), F.text == names["back"])
 async def back(message: Message, state: FSMContext):
     await state.set_state(StateMachine.CUSTOM_PRESETS)
-    await message.answer(texts['start'], reply_markup=customPresetsKeyboard)
+    await message.answer(texts['custom'], reply_markup=customPresetsKeyboard)
 
 """
     "fire": "\uD83D\uDD25 огонь",
