@@ -1,11 +1,9 @@
 {
-  "gradient4":
-  {
-    "⚪\uFE0F\uD83D\uDFE0\uD83D\uDFE0⚫\uFE0F": "WHITE ORANGE ORANGE BLACK",
-    "\uD83D\uDD34\uD83D\uDFE0\uD83D\uDFE1\uD83D\uDFE2": "RED YELLOW ORANGE GREEN",
-    "⚪\uFE0F\uD83D\uDD35\uD83D\uDFE3⚫\uFE0F": "WHITE BLUE VIOLET BLACK",
-    "⚪\uFE0F⚪\uFE0F\uD83D\uDD35\uD83D\uDFE2⚪\uFE0F\uD83D\uDD35": "WHITE LIGHTBLUE GREEN LIGHTBLUE",
-    "⚪\uFE0F ⚫\uFE0F\uD83D\uDD35 \uD83D\uDFE3\uD83D\uDFE3": "WHITE DARKBLUE VIOLET VIOLET",
-    "\uD83D\uDD34\uD83D\uDFE0⚪\uFE0F\uD83D\uDFE1": "RED ORANGE WHITE YELLOW"
-  }
+    "\u26aa\ufe0f\ud83d\udfe0\ud83d\udfe0\u26ab\ufe0f": "WHITE ORANGE ORANGE BLACK",
+    "\ud83d\udd34\ud83d\udfe0\ud83d\udfe1\ud83d\udfe2": "RED YELLOW ORANGE GREEN",
+    "\u26aa\ufe0f\ud83d\udd35\ud83d\udfe3\u26ab\ufe0f": "WHITE BLUE VIOLET BLACK",
+    "\u26aa\ufe0f\u26aa\ufe0f\ud83d\udd35\ud83d\udfe2\u26aa\ufe0f\ud83d\udd35": "WHITE LIGHTBLUE GREEN LIGHTBLUE",
+    "\u26aa\ufe0f \u26ab\ufe0f\ud83d\udd35 \ud83d\udfe3\ud83d\udfe3": "WHITE DARKBLUE VIOLET VIOLET",
+    "\ud83d\udd34\ud83d\udfe0\u26aa\ufe0f\ud83d\udfe1": "RED ORANGE WHITE YELLOW",
+    "\ud83d\udfe0\ud83d\udfe1\ud83d\udfe0\u26aa\ufe0f\ud83d\udd35\u26aa\ufe0f\ud83d\udd35": "ORANGE YELLOWORANGE LIGHTBLUE LIGHTBLUE"
 }

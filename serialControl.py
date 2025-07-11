@@ -14,6 +14,7 @@ class FanController:
     @staticmethod
     def color(color):
         logger.info(f"Отправлен сигнал {color} на Arduino")
+        print(f"{color.upper()}")
         arduino.write(f'{color.upper()}'.encode("utf-8"))
         time.sleep(1)
 
@@ -85,5 +86,17 @@ class FanController:
     def brightnessminusminus():
         logger.info("Отправлен сигнал Brightness -- на Arduino")
         arduino.write(b'BRIGHTNESS--')
+        time.sleep(1)  # Пауза в секунду после отправки сигнала
+
+    @staticmethod
+    def brightnessplus():
+        logger.info("Отправлен сигнал Brightness ++ на Arduino")
+        arduino.write(b'BRIGHTNESS+')
+        time.sleep(1)  # Пауза в секунду после отправки сигнала
+
+    @staticmethod
+    def brightnessminus():
+        logger.info("Отправлен сигнал Brightness -- на Arduino")
+        arduino.write(b'BRIGHTNESS-')
         time.sleep(1)  # Пауза в секунду после отправки сигнала
 

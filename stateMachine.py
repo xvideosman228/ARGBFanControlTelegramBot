@@ -34,6 +34,8 @@ class StateMachine(StatesGroup):
     GRADIENT4_COLOR_2 = State()
     GRADIENT4_COLOR_3 = State()
     GRADIENT4_COLOR_4 = State()
+    GRADIENT_RANDOM_COLOR = State()
+    GRADIENT_RANDOM_COLOR_TEXT = State()
 
     CYLON = State()
 

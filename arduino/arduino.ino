@@ -6,14 +6,18 @@ FASTLED_USING_NAMESPACE
 #define LED_TYPE    WS2811
 #define COLOR_ORDER GRB
 #define NUM 8
-int BRIGHTNESS = 0;
-#define BRIGHTNESSPLUSPLUS 50
+int BRIGHTNESS = 252;
+#define BRIGHTNESSPLUSPLUS 126
+#define BRIGHTNESSPLUS 63
 
 CRGB leds[NUM];       // Массив для хранения состояния каждого диода
 
 void setup() {
   delay(2000);
-  FastLED.addLeds<WS2812B, PIN, GRB>(leds, NUM).setCorrection( TypicalLEDStrip);
+FastLED.addLeds<WS2812B, PIN, GRB>(leds, NUM).setCorrection(TypicalLEDStrip);
+    
+    // Установка общей яркости вне цепочки методов
+    FastLED.setBrightness(BRIGHTNESS);
 
   
           // Задержка перед инициализацией, позволяет подключить монитор порт
@@ -119,12 +123,13 @@ CRGB colorPick(const String color)
   
   else if(color == "YELLOW"){return CRGB::Yellow;}
   else if(color == "YELLOWORANGE"){return CRGB::Gold;}
+  else if(color == "YELLOWGREEN"){return CRGB::LawnGreen;}
   else if(color == "ORANGERED"){return CRGB::OrangeRed;}
 
-  else if(color == "LIGHTBLUE"){return CRGB::Turquoise;}
+  else if(color == "LIGHTBLUE"){return CRGB::DodgerBlue;}
   else if(color == "DARKBLUE"){return CRGB::MidnightBlue;}
   else if(color == "VIOLET"){return CRGB::Purple;}
-  else if(color == "PINK"){return CRGB::Fuchsia;}
+  else if(color == "PINK"){return CRGB::Crimson;}
   else if(color == "WHITE"){return CRGB::Snow;}
   else if(color == "BLUE"){return CRGB::Blue;}
   else if(color == "BLACK"){return CRGB::Black;}
@@ -163,7 +168,7 @@ void staticColor(CRGB color) {
 //FadeInOut(0xff, 0x77, 0x00);
 
 //colorWipe(0x00,0xff,0x00, 50);
-//colorWipe(0x00,0x00,0x00, 50);
+//colorWipe(0x00,0x00,0x00, 50);Yellow
 
 // RunningLights(0xff,0xff,0x00, 100);
 
@@ -181,7 +186,8 @@ void loop() {
     {          
       while(true) {     
         Serial.println("RED");            
-        staticColor(CRGB::Red);
+        // staticColor(CRGB::Red);
+        staticColor(CRGB::Khaki);
         //fill_gradient_RGB_4(leds, NUM, CRGB::Red, CRGB::White, CRGB::Red, CRGB::White);
         if(Serial.available()) {   
           break;                   
@@ -216,6 +222,17 @@ void loop() {
       while(true) {     
         Serial.println("YELLOW");                 
         staticColor(CRGB::Yellow);
+        if(Serial.available()) {   
+          break;                   
+        }
+      }
+    }
+
+    else if(command == "YELLOWGREEN") 
+    {          
+      while(true) {     
+        Serial.println("YELLOWGREEN");                 
+        staticColor(CRGB::LawnGreen);
         if(Serial.available()) {   
           break;                   
         }
@@ -259,7 +276,7 @@ void loop() {
     {          
       while(true) {     
         Serial.println("LIGHT BLUE");            
-        staticColor(CRGB::Turquoise); 
+        staticColor(CRGB::DodgerBlue); 
         if(Serial.available()) {   
           break;                   
         }
@@ -314,7 +331,7 @@ void loop() {
     {          
       while(true) {     
         Serial.println("PINK");  
-        staticColor(CRGB::Fuchsia);         
+        staticColor(CRGB::Crimson);         
         if(Serial.available()) {   
           break;                   
         }
@@ -521,14 +538,50 @@ void loop() {
 
     else if(command == "BRIGHTNESS++") 
     {          
-      Serial.println("BRIGHTNESS++");                 
+      Serial.println("BRIGHTNESS++");  
       BRIGHTNESS += BRIGHTNESSPLUSPLUS;
+      Serial.println(BRIGHTNESS);               
+      FastLED.setBrightness(BRIGHTNESS);
+
+    // Плавная задержка между изменениями
+      delay(50);
+
     }  
 
     else if(command == "BRIGHTNESS--") 
     {          
       Serial.println("BRIGHTNESS--");                 
       BRIGHTNESS -= BRIGHTNESSPLUSPLUS;
+      Serial.println(BRIGHTNESS);         
+      FastLED.setBrightness(BRIGHTNESS);
+
+    // Плавная задержка между изменениями
+    delay(50);      
+
+    }
+
+    else if(command == "BRIGHTNESS+") 
+    {          
+      Serial.println("BRIGHTNESS+");  
+      BRIGHTNESS += BRIGHTNESSPLUS;
+      Serial.println(BRIGHTNESS);               
+      FastLED.setBrightness(BRIGHTNESS);
+
+    // Плавная задержка между изменениями
+      delay(50);
+
+    }  
+
+    else if(command == "BRIGHTNESS-") 
+    {          
+      Serial.println("BRIGHTNESS-");                 
+      BRIGHTNESS -= BRIGHTNESSPLUS;
+      Serial.println(BRIGHTNESS);         
+      FastLED.setBrightness(BRIGHTNESS);
+
+    // Плавная задержка между изменениями
+    delay(50);      
+
     }
   }
   

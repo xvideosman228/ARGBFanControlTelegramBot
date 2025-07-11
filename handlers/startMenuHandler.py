@@ -21,6 +21,14 @@ with open('./config/texts.json') as file:
 startMenuRouter = Router()
 startMenuRouter.include_router(customPresetsMenuRouter)
 
+async def color(message):
+    colourIndex = int(list(names["colors"]["basicColors"].values()).index(message.text))
+    logger.info(f"Кнопка {message.text.capitalize()} нажата")
+    colour = list(names["colors"]["basicColors"].keys())[colourIndex]
+    print(colour)
+    await message.answer(texts[colour])
+    FanController.color(colour.upper())
+
 @exception
 @startMenuRouter.message(Command('start'))
 async def start(message: Message, state: FSMContext):
@@ -34,6 +42,7 @@ async def about(message: Message, state: FSMContext):
     await state.set_state(StateMachine.ABOUT)
     await message.answer(texts["about"], reply_markup=backKeyboard)
 
+"""
 @exception
 @startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["startButtons"]["strength+"])
 async def strengthplus(message: Message):
@@ -64,13 +73,7 @@ async def modeminus(message: Message):
 
 
 
-async def color(message):
-    colourIndex = int(list(names["colors"]["basicColors"].values()).index(message.text))
-    logger.info(f"Кнопка {message.text.capitalize()} нажата")
-    colour = list(names["colors"]["basicColors"].keys())[colourIndex]
-    print(colour)
-    await message.answer(texts[colour])
-    FanController.color(colour.upper())
+
 
 
 
@@ -87,16 +90,21 @@ async def strengthminusminus(message: Message):
     logger.info("Кнопка Strength -- нажата")
     await message.answer(texts["strength--"])
 
+
+"""
+
 @exception
 @startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["startButtons"]["brightness+"])
 async def brightnessplus(message: Message):
     logger.info("Кнопка Brightness + нажата")
     await message.answer(texts["brightness+"])
+    FanController.brightnessplus()
 
 @exception
 @startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["startButtons"]["brightness-"])
 async def brightnessminus(message: Message):
     logger.info("Кнопка Brightness - нажата")
+    FanController.brightnessminus()
     await message.answer(texts["brightness-"])
 
 @exception
@@ -112,13 +120,6 @@ async def brightnessminusminus(message: Message):
     logger.info("Кнопка Brightness -- нажата")
     FanController.brightnessminusminus()
     await message.answer(texts["brightness--"])
-
-@exception
-@startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["colors"]["basicColors"]["black"])
-async def black(message: Message):
-    logger.info("Кнопка Black нажата")
-    await message.answer(texts["black"])
-    FanController.black()
 
 @exception
 @startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["customPresets"])
@@ -140,8 +141,9 @@ async def default(message: Message, state: FSMContext):
     if message.text in list(names["colors"]["basicColors"].values()):
         await color(message)
     # logger.info(f"Пользователь {message.from_user.id} чёто сказал")
-    await state.set_state(StateMachine.START)
-    await message.answer(texts['iDidNotFuckingUnderstandYouStupidMoron'], reply_markup=startKeyboard)
+    else:
+        await state.set_state(StateMachine.START)
+        await message.answer(texts['iDidNotFuckingUnderstandYouStupidMoron'], reply_markup=startKeyboard)
 
 """
 Генератор кода для цветов

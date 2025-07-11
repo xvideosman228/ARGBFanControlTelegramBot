@@ -1,22 +1,21 @@
 {
   "startButtons":
   {
-    "strength+": "♨\uD83D\uDD3C",
-    "strength++": "♨⏫",
-    "mode+": "⚙\uFE0F\uD83D\uDD3C",
+
     "brightness+": "\uD83D\uDD06\uD83D\uDD3C",
     "brightness++": "\uD83D\uDD06⏫",
-    "strength-": "♨\uD83D\uDD3D",
-    "strength--": "♨⏬",
-    "mode-": "⚙\uFE0F\uD83D\uDD3D",
+    "customPresets": "\uD83C\uDFA8⚙\uFE0F",
     "brightness-": "\uD83D\uDD06\uD83D\uDD3D",
     "brightness--": "\uD83D\uDD06⏬"
 
   },
   "about": "fefefefsadfadsfasdf",
-  "customPresets": "Кастомные пресеты",
+  "customPresets": "\uD83C\uDFA8⚙\uFE0F",
   "back": "⬅\uFE0F Назад",
   "make" : "Собрать",
+  "addToFavorites": "⭐\uFE0F",
+  "random4gradient": "\uD83C\uDFB2 Случайный градиент",
+
   "colors":
   {
 
@@ -31,6 +30,7 @@
       "orange": "\uD83D\uDFE0",
 
       "pink": "\uD83D\uDD34⚪\uFE0F",
+      "yellowgreen": "\uD83D\uDFE1\uD83D\uDFE2",
 
       "orangered": "\uD83D\uDFE0\uD83D\uDD34",
       "lightblue": "⚪\uFE0F\uD83D\uDD35",

@@ -9,7 +9,8 @@ from handlers.fadeInOutHandler import fadeInOutRouter
 from handlers.gradient4Handler import gradient4Router
 from handlers.gradientHandler import gradientRouter
 from handlers.smoothGradientHandler import smoothGradientRouter
-from keyboard import customPresetsKeyboard, colorKeyboard, timeKeyboard, preinstalledGradient4Keyboard
+from keyboard import customPresetsKeyboard, colorKeyboard, timeKeyboard, preinstalledGradient4Keyboard, \
+    generatePreinstalledGradient4Keyboard
 from serialControl import FanController
 from stateMachine import StateMachine
 from config.loggingConfig import exception, logger
@@ -70,6 +71,7 @@ async def gradient(message: Message, state: FSMContext):
 @customPresetsMenuRouter.message(StateFilter(StateMachine.CUSTOM_PRESETS), F.text == names["custom"]["gradient4"])
 async def gradient4(message: Message, state: FSMContext):
     logger.info("Кнопка Gradient4 нажата")
+    preinstalledGradient4Keyboard = generatePreinstalledGradient4Keyboard()
     await state.set_state(StateMachine.GRADIENT4)
     await message.answer(texts["gradient4"], reply_markup=preinstalledGradient4Keyboard)
 
@@ -111,6 +113,7 @@ states = (
     StateMachine.COLOR_WIPE_2,
     StateMachine.COLOR_WIPE_TIME,
     StateMachine.GRADIENT4_1,
+    StateMachine.GRADIENT4,
     StateMachine.GRADIENT4_2,
     StateMachine.GRADIENT4_3,
     StateMachine.GRADIENT4_4,

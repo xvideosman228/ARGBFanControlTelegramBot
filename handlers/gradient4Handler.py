@@ -1,9 +1,9 @@
 from aiogram.filters import StateFilter
 from aiogram.fsm.context import FSMContext
 from aiogram import Router, F
-from aiogram.types import Message
-
-from keyboard import customPresetsKeyboard, colorKeyboard
+from aiogram.types import Message, CallbackQuery
+from random import choice
+from keyboard import customPresetsKeyboard, colorKeyboard, addToFavoritesKeyboard
 from serialControl import FanController
 from stateMachine import StateMachine
 from config.loggingConfig import exception, logger
@@ -15,22 +15,75 @@ with open('./config/buttons.json') as file:
 with open('./config/texts.json') as file:
     texts = json.load(file)
 
-with open('./config/presets.json') as file:
-    presets = json.load(file)
 
 gradient4Router = Router()
 
-@exception
-@gradient4Router.message(StateFilter(StateMachine.GRADIENT4), F.text.in_(presets["gradient4"].keys()))
-async def color(message: Message, state: FSMContext):
-    print(message.text)
-    colors = presets["gradient4"].get(message.text)
-    colors = colors.split()
-    print(colors)
-    color1, color2, color3, color4 = colors[0], colors[1], colors[2], colors[3]
-    await message.answer(f"{message.text}-градиент", reply_markup=customPresetsKeyboard)
+# 🎲
+# Функция для получения всех предустановленных наборов градиентов
+def jsonUpdate():
+    with open('./config/presets.json', encoding='utf-8') as file:
+        presets = json.load(file)
+        return presets
+
+
+# Фильтр состояния и проверка текста сообщения
+@gradient4Router.message(StateFilter(StateMachine.GRADIENT4), F.text.in_(jsonUpdate().keys()))
+async def color(message: Message):
+    presets = jsonUpdate()
+    # Прямо получаем нужное значение по переданному сообщению
+    colors_str = presets.get(message.text)
+    if not colors_str:
+        await message.answer("Такой градиент не найден.", reply_markup=customPresetsKeyboard)
+        return
+
+    # Разделяем строку цветов пробелами
+    colors = colors_str.strip().split()
+    color1, color2, color3, color4 = colors[:4]
+
+    # Отправляем сообщение и запускаем команду контроллера вентилятора
+    await message.answer(f"{message.text}-градиент")
     FanController.gradient4(color1, color2, color3, color4)
-    await state.set_state(StateMachine.CUSTOM_PRESETS)
+
+@exception
+@gradient4Router.message(StateFilter(StateMachine.GRADIENT4), F.text == names["random4gradient"])
+async def randomColor(message: Message, state: FSMContext):
+    colors = [choice(list(names["colors"]["basicColors"].keys())).upper() for x in range(4)]
+    color1, color2, color3, color4 = colors[0], colors[1], colors[2], colors[3]
+    emojis = [names["colors"]["basicColors"][x.lower()] for x in colors]
+    await message.answer(f"{"".join(emojis)}-градиент", reply_markup=addToFavoritesKeyboard)
+    FanController.gradient4(color1, color2, color3, color4)
+    # await state.set_state(StateMachine.CUSTOM_PRESETS)
+    await state.update_data(GRADIENT_RANDOM_COLOR="".join(emojis))
+    await state.update_data(GRADIENT_RANDOM_COLOR_TEXT=" ".join(colors))
+
+
+@exception
+@gradient4Router.callback_query(F.data == "favorite")
+async def favorite(callback_query: CallbackQuery, state: FSMContext):
+    await callback_query.message.answer("Добавлено в избранное!")
+
+    # Получаем состояние
+    grad = await state.get_data()
+    gradient = grad["GRADIENT_RANDOM_COLOR"]
+    color = grad["GRADIENT_RANDOM_COLOR_TEXT"]
+
+    # Открываем файл для чтения и загрузки текущих данных
+    try:
+        with open("./config/presets.json", "r") as presetFile:
+            preset = json.load(presetFile)
+    except FileNotFoundError:
+        preset = {}  # Создаем пустой словарь, если файл отсутствует
+
+    # Обновляем данные
+    preset[gradient] = color
+
+    # Сохраняем обновленные данные обратно в файл
+    with open("./config/presets.json", "w") as presetFile:
+        json.dump(preset, presetFile, indent=4)
+
+    print("Файл успешно обновлён!")
+
+
 
 @exception
 @gradient4Router.message(StateFilter(StateMachine.GRADIENT4), F.text == names["make"])
