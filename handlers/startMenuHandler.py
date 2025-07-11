@@ -26,7 +26,7 @@ async def color(message):
     logger.info(f"Кнопка {message.text.capitalize()} нажата")
     colour = list(names["colors"]["basicColors"].keys())[colourIndex]
     print(colour)
-    await message.answer(texts[colour])
+    await message.answer(f"{texts['color']}{names["colors"]["basicColors"][colour]}")
     FanController.color(colour.upper())
 
 @exception

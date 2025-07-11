@@ -13,7 +13,7 @@
   "customPresets": "\uD83C\uDFA8⚙\uFE0F",
   "back": "⬅\uFE0F Назад",
   "make" : "Собрать",
-  "addToFavorites": "⭐\uFE0F",
+  "addToFavorites": "⭐\uFE0F В избранное",
   "random4gradient": "\uD83C\uDFB2 Случайный градиент",
 
   "colors":
@@ -31,13 +31,16 @@
 
       "pink": "\uD83D\uDD34⚪\uFE0F",
       "yellowgreen": "\uD83D\uDFE1\uD83D\uDFE2",
+      "olive": "\uD83E\uDED2",
 
       "orangered": "\uD83D\uDFE0\uD83D\uDD34",
+      "skyblue": "☁\uFE0F\uD83D\uDD35",
       "lightblue": "⚪\uFE0F\uD83D\uDD35",
       "darkblue": "⚫\uFE0F\uD83D\uDD35",
 
       "violet": "\uD83D\uDFE3",
       "white": "⚪\uFE0F",
+      "gray": "⚪\uFE0F⚫\uFE0F",
       "black": "⚫\uFE0F"
     }
 
@@ -46,7 +49,6 @@
   {
     "fadeinout": "Fade in/out",
     "cylon": "Cylon",
-    "runninglights": "Running Lights",
     "colorwipe": "Color Wipe",
     "rainbow": "Rainbow Circle",
     "pacific": "Pacific",

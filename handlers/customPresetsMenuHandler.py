@@ -53,12 +53,17 @@ async def rainbow(message: Message):
     await message.answer(texts["rainbow"])
     FanController.rainbow()
 
+'''
 @exception
 @customPresetsMenuRouter.message(StateFilter(StateMachine.CUSTOM_PRESETS), F.text == names["custom"]["runninglights"])
 async def runninglight(message: Message):
     logger.info("Кнопка Runnung Lights нажата")
     await message.answer(texts["runninglights"])
     FanController.runninglight()
+    
+"runninglights": "Running Lights",    
+
+'''
 
 @exception
 @customPresetsMenuRouter.message(StateFilter(StateMachine.CUSTOM_PRESETS), F.text == names["custom"]["gradient"])

@@ -23,18 +23,24 @@ def generateStartKeyboard():
         builder.button(text=button)
     for text in names["colors"]['basicColors'].values():
         builder.button(text=f"{text}")
-    builder.adjust(5,7,7)
+
+
+    builder.adjust(5,9,8)
 
     return builder.as_markup()
 
 
 def generateCustomPresetsKeyboard():
     builder = ReplyKeyboardBuilder()
+    rowNumber = 4
     buttons = [x for x in names["custom"].values()]
+    firstRow = len(buttons) // 2
+    sizesTuple = ((rowNumber,) * (len(buttons) // rowNumber)) + (len(buttons) % rowNumber,)
+    sizesTuple = tuple(x for x in sizesTuple if x != 0)
     for button in buttons:
         builder.button(text=button)
     builder.button(text='⬅️ Назад')
-    builder.adjust(3,3,3,1)
+    builder.adjust(*sizesTuple,1)
 
     return builder.as_markup()
 
@@ -43,26 +49,29 @@ def generatePreinstalledGradient4Keyboard():
     rowNumber = 3
     buttons = [x for x in jsonUpdate().keys()]
     firstRow = len(buttons) // 2
-    print(firstRow // rowNumber)
-    testTuple = ((rowNumber,) * (len(buttons) // rowNumber)) + (len(buttons) % rowNumber,)
-    testTuple = tuple(x for x in testTuple if x != 0)
-    print(testTuple)
+    sizesTuple = ((rowNumber,) * (len(buttons) // rowNumber)) + (len(buttons) % rowNumber,)
+    sizesTuple = tuple(x for x in sizesTuple if x != 0)
     builder.button(text=names["random4gradient"])
     builder.button(text=names["make"])
     for button in buttons:
         builder.button(text=button)
     builder.button(text='⬅️ Назад')
-    builder.adjust(2, *testTuple, 1)
+    builder.adjust(2, *sizesTuple, 1)
 
     return builder.as_markup()
 
 def generateColorKeyboard():
     builder = ReplyKeyboardBuilder()
+    rowNumber = 8
     buttons = [x for x in names["colors"]["basicColors"].values()]
+    firstRow = len(buttons) // 2
+    sizesTuple = ((rowNumber,) * (len(buttons) // rowNumber)) + (len(buttons) % rowNumber,)
+    print(sizesTuple)
+    sizesTuple = tuple(x for x in sizesTuple if x != 0)
     for button in buttons:
         builder.button(text=button)
     builder.button(text='⬅️ Назад')
-    builder.adjust(7,7, 1)
+    builder.adjust(*sizesTuple, 1)
 
     return builder.as_markup()
 

@@ -132,6 +132,7 @@ CRGB colorPick(const String color)
   else if(color == "PINK"){return CRGB::Crimson;}
   else if(color == "WHITE"){return CRGB::Snow;}
   else if(color == "BLUE"){return CRGB::Blue;}
+  else if(color == "GRAY"){return CRGB(0x7f, 0x7f, 0x7f);}
   else if(color == "BLACK"){return CRGB::Black;}
 }
 int times(String time)
@@ -186,8 +187,7 @@ void loop() {
     {          
       while(true) {     
         Serial.println("RED");            
-        // staticColor(CRGB::Red);
-        staticColor(CRGB::Khaki);
+        staticColor(CRGB::Red);
         //fill_gradient_RGB_4(leds, NUM, CRGB::Red, CRGB::White, CRGB::Red, CRGB::White);
         if(Serial.available()) {   
           break;                   
@@ -239,6 +239,17 @@ void loop() {
       }
     }
 
+    else if(command == "OLIVE") 
+    {          
+      while(true) {     
+        Serial.println("OLIVE");            
+        staticColor(CRGB(0x52, 0x52, 0x00));
+        if(Serial.available()) {   
+          break;                   
+        }
+      }
+    }
+
     else if(command == "YELLOWORANGE") 
     {          
       while(true) {     
@@ -275,13 +286,27 @@ void loop() {
     else if(command == "LIGHTBLUE") 
     {          
       while(true) {     
-        Serial.println("LIGHT BLUE");            
+        Serial.println("LIGHT BLUE");    
+        staticColor(CRGB(0x00, 0xA5, 0xA7 ));        
+        
+        if(Serial.available()) {   
+          break;                   
+        }
+      }
+    }
+
+
+    else if(command == "SKYBLUE") 
+    {          
+      while(true) {     
+        Serial.println("SKY BLUE");
         staticColor(CRGB::DodgerBlue); 
         if(Serial.available()) {   
           break;                   
         }
       }
     }
+
 
     else if(command == "DARKBLUE") 
     {          
@@ -310,6 +335,17 @@ void loop() {
       while(true) {     
         Serial.println("WHITE");  
         staticColor(CRGB::Snow);         
+        if(Serial.available()) {   
+          break;                   
+        }
+      }
+    }
+
+    else if(command == "GRAY") 
+    {          
+      while(true) {     
+        Serial.println("GRAY");  
+        staticColor(CRGB(0x7f, 0x7f, 0x7f));         
         if(Serial.available()) {   
           break;                   
         }
