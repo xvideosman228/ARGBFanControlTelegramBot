@@ -66,7 +66,6 @@ def generateColorKeyboard():
     buttons = [x for x in names["colors"]["basicColors"].values()]
     firstRow = len(buttons) // 2
     sizesTuple = ((rowNumber,) * (len(buttons) // rowNumber)) + (len(buttons) % rowNumber,)
-    print(sizesTuple)
     sizesTuple = tuple(x for x in sizesTuple if x != 0)
     for button in buttons:
         builder.button(text=button)

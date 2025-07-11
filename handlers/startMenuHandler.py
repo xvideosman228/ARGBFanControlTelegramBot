@@ -39,6 +39,7 @@ async def start(message: Message, state: FSMContext):
     if str(message.from_user.id) not in whitelist:
         print(type(message.from_user.id))
         print(whitelist)
+        logger.info(f"Пользователь {message.from_user.id} попытался получить доступ к боту!")
         await message.answer(texts["illegalAccess"])
     else:
         await state.set_state(StateMachine.START)
@@ -145,11 +146,22 @@ async def back(message: Message, state: FSMContext):
     await message.answer(texts['start'], reply_markup=startKeyboard)
 
 @exception
-@startMenuRouter.message(StateFilter(StateMachine.START), F.text)
+@startMenuRouter.message(F.photo | F.sticker | F.video | F.file)
 async def default(message: Message, state: FSMContext):
     if message.text in list(names["colors"]["basicColors"].values()):
         await color(message)
     # logger.info(f"Пользователь {message.from_user.id} чёто сказал")
+    else:
+        await state.set_state(StateMachine.START)
+        await message.answer(texts['iDidNotFuckingUnderstandYouStupidMoron'], reply_markup=startKeyboard)
+
+
+@exception
+@startMenuRouter.message(StateFilter(StateMachine.START), F.text)
+async def default(message: Message, state: FSMContext):
+    if message.text in list(names["colors"]["basicColors"].values()):
+        await color(message)
+    # logger.info(f"Пользователь {message.from_user.id} отп")
     else:
         await state.set_state(StateMachine.START)
         await message.answer(texts['iDidNotFuckingUnderstandYouStupidMoron'], reply_markup=startKeyboard)
