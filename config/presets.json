@@ -5,5 +5,8 @@
     "\u26aa\ufe0f\u26aa\ufe0f\ud83d\udd35\ud83d\udfe2\u26aa\ufe0f\ud83d\udd35": "WHITE LIGHTBLUE GREEN LIGHTBLUE",
     "\u26aa\ufe0f \u26ab\ufe0f\ud83d\udd35 \ud83d\udfe3\ud83d\udfe3": "WHITE DARKBLUE VIOLET VIOLET",
     "\ud83d\udd34\ud83d\udfe0\u26aa\ufe0f\ud83d\udfe1": "RED ORANGE WHITE YELLOW",
-    "\ud83d\udfe0\ud83d\udfe1\ud83d\udfe0\u26aa\ufe0f\ud83d\udd35\u26aa\ufe0f\ud83d\udd35": "ORANGE YELLOWORANGE LIGHTBLUE LIGHTBLUE"
+    "\ud83d\udfe0\ud83d\udfe1\ud83d\udfe0\u26aa\ufe0f\ud83d\udd35\u26aa\ufe0f\ud83d\udd35": "ORANGE YELLOWORANGE LIGHTBLUE LIGHTBLUE",
+    "\u26ab\ufe0f\ud83d\udd35\u26aa\ufe0f\ud83d\udd35\ud83d\udfe1\ud83d\udfe2\u26ab\ufe0f": "DARKBLUE LIGHTBLUE YELLOWGREEN BLACK",
+    "\ud83d\udfe0\u26aa\ufe0f\ud83d\udfe3\ud83d\udfe1": "ORANGE WHITE VIOLET YELLOW",
+    "\u26aa\ufe0f\ud83d\udfe0\u26ab\ufe0f\ud83d\udfe0": "WHITE ORANGE BLACK ORANGE"
 }

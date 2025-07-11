@@ -53,8 +53,9 @@ async def randomColor(message: Message, state: FSMContext):
     await message.answer(f"{"".join(emojis)}-градиент", reply_markup=addToFavoritesKeyboard)
     FanController.gradient4(color1, color2, color3, color4)
     # await state.set_state(StateMachine.CUSTOM_PRESETS)
-    await state.update_data(GRADIENT_RANDOM_COLOR="".join(emojis))
-    await state.update_data(GRADIENT_RANDOM_COLOR_TEXT=" ".join(colors))
+    print("".join(emojis))
+    await state.update_data(GRADIENT4_COLOR="".join(emojis))
+    await state.update_data(GRADIENT4_COLOR_TEXT=" ".join(colors))
 
 
 @exception
@@ -64,8 +65,8 @@ async def favorite(callback_query: CallbackQuery, state: FSMContext):
 
     # Получаем состояние
     grad = await state.get_data()
-    gradient = grad["GRADIENT_RANDOM_COLOR"]
-    color = grad["GRADIENT_RANDOM_COLOR_TEXT"]
+    gradient = grad["GRADIENT4_COLOR"]
+    color = grad["GRADIENT4_COLOR_TEXT"]
 
     # Открываем файл для чтения и загрузки текущих данных
     try:
@@ -134,7 +135,17 @@ async def colorPick(message: Message, state: FSMContext):
     logger.info(f"Выбран {color.capitalize()} для 4Gradient_4")
 
     await state.update_data(GRADIENT4_COLOR_4=f"{color.upper()}")
-    await message.answer(names["colors"]["basicColors"][f"{color}"] + ' установлен в качестве четвёртого цвета для ' + names["custom"]["gradient4"], reply_markup=customPresetsKeyboard)
+    await message.answer(names["colors"]["basicColors"][f"{color}"] + ' установлен в качестве четвёртого цвета для ' + names["custom"]["gradient4"])
     color = await state.get_data()
-    FanController.gradient4(f'{color["GRADIENT4_COLOR_1"]}', f'{color["GRADIENT4_COLOR_2"]}', f'{color["GRADIENT4_COLOR_3"]}', f'{color["GRADIENT4_COLOR_4"]}')
+    # await state.update_data(GRADIENT4_COLOR=)
+    color1 = color["GRADIENT4_COLOR_1"]
+    color2 = color["GRADIENT4_COLOR_2"]
+    color3 = color["GRADIENT4_COLOR_3"]
+    color4 = color["GRADIENT4_COLOR_4"]
+    emojis = [color1,color2,color3,color4]
+    colors = [names["colors"]["basicColors"][x.lower()] for x in emojis]
+    await state.update_data(GRADIENT4_COLOR="".join(colors))
+    await state.update_data(GRADIENT4_COLOR_TEXT=" ".join(emojis))
+    FanController.gradient4(color1, color2, color3, color4)
+    await message.answer(texts["finalGradient"] + " ".join(colors),reply_markup=addToFavoritesKeyboard)
     await state.set_state(StateMachine.CUSTOM_PRESETS)

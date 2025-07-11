@@ -45,6 +45,7 @@ def generatePreinstalledGradient4Keyboard():
     firstRow = len(buttons) // 2
     print(firstRow // rowNumber)
     testTuple = ((rowNumber,) * (len(buttons) // rowNumber)) + (len(buttons) % rowNumber,)
+    testTuple = tuple(x for x in testTuple if x != 0)
     print(testTuple)
     builder.button(text=names["random4gradient"])
     builder.button(text=names["make"])
