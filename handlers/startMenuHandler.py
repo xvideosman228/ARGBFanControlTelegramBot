@@ -17,6 +17,10 @@ with open('./config/buttons.json') as file:
 with open('./config/texts.json') as file:
     texts = json.load(file)
 
+with open('./config/whitelist') as file:
+    whitelist = file.readlines()
+    whitelist = [x.replace('\n','') for x in whitelist]
+
 
 startMenuRouter = Router()
 startMenuRouter.include_router(customPresetsMenuRouter)
@@ -32,8 +36,13 @@ async def color(message):
 @exception
 @startMenuRouter.message(Command('start'))
 async def start(message: Message, state: FSMContext):
-    await state.set_state(StateMachine.START)
-    await message.answer(texts["start"], reply_markup=startKeyboard)
+    if str(message.from_user.id) not in whitelist:
+        print(type(message.from_user.id))
+        print(whitelist)
+        await message.answer(texts["illegalAccess"])
+    else:
+        await state.set_state(StateMachine.START)
+        await message.answer(texts["start"], reply_markup=startKeyboard)
 
 @exception
 @startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["about"])

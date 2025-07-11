@@ -15,7 +15,7 @@
   "brightness--": "-- яркость",
 
   "chooseColor": "Выбери цвет",
-
+  "illegalAccess": "\uD83C\uDDF7\uD83C\uDDFA Это не публичный бот!\n\uD83C\uDDEC\uD83C\uDDE7 This bot isnt for public access!",
   "color": "Установленный цвет: ",
 
   "fadeinout": "Плавное появление/затухание",
