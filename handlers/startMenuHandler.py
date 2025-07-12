@@ -28,7 +28,6 @@ async def color(message):
     colourIndex = int(list(names["colors"]["basicColors"].values()).index(message.text))
     logger.info(f"Кнопка {message.text.capitalize()} нажата")
     colour = list(names["colors"]["basicColors"].keys())[colourIndex]
-    print(colour)
     await message.answer(f"{texts['color']}{names["colors"]["basicColors"][colour]}")
     FanController.color(colour.upper())
 
@@ -36,8 +35,6 @@ async def color(message):
 @startMenuRouter.message(Command('start'))
 async def start(message: Message, state: FSMContext):
     if str(message.from_user.id) not in whitelist:
-        print(type(message.from_user.id))
-        print(whitelist)
         logger.info(f"Пользователь {message.from_user.id} попытался получить доступ к боту!")
         await message.answer(texts["illegalAccess"])
     else:

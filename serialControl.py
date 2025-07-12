@@ -2,13 +2,41 @@ import serial
 import json
 import time
 from config.loggingConfig import logger
+import platform
+import serial.tools.list_ports
+
+def changePort(port: str):
+    with open('./config/arduino.json') as configFile:
+        configuration = json.load(configFile)
+
+    configuration['port'] = port
+    with open('./config/arduino.json','w') as configFile:
+        json.dump(configuration, configFile, indent=4)
+
+
+
+if platform.system() == 'Linux':
+    ports = list(serial.tools.list_ports.comports())
+    for p in ports:
+        if "USB Serial" in p.description:
+            changePort(p[0])
+
+
+
+elif platform.system() == 'Windows':
+    ports = list(serial.tools.list_ports.comports())
+    for p in ports:
+        if "USB Serial" in p.description:
+            changePort(p[0])
 
 # Загрузка конфигурации
+
 with open('./config/arduino.json') as file:
     conf = json.load(file)
 
-# Подключение к Arduino
 arduino = serial.Serial(port=conf['port'], baudrate=conf['baudrate'], timeout=conf['timeout'])
+# Подключение к Arduino
+
 
 class FanController:
     @staticmethod

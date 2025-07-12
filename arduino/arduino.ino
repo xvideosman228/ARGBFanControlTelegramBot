@@ -166,18 +166,7 @@ void staticColor(CRGB color) {
 
 // 
 
-//FadeInOut(0xff, 0x77, 0x00);
 
-//colorWipe(0x00,0xff,0x00, 50);
-//colorWipe(0x00,0x00,0x00, 50);Yellow
-
-// RunningLights(0xff,0xff,0x00, 100);
-
-
-// theaterChaseRainbow(50);
-// testGroups(); 
-
-// Основной цикл обработки
 void loop() {
   if(Serial.available()) {           // Проверяем наличие данных в последовательном порту
     String command = Serial.readStringUntil('\\n');
