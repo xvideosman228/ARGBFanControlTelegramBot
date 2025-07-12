@@ -94,7 +94,15 @@ def generateShortTimeKeyboard():
 
     return builder.as_markup()
 
+def generateLongTimeKeyboard():
+    builder = ReplyKeyboardBuilder()
+    buttons = [x for x in names["longTimes"].values()]
+    for button in buttons:
+        builder.button(text=button)
+    builder.button(text='⬅️ Назад')
+    builder.adjust(3,2, 1)
 
+    return builder.as_markup()
 
 colorKeyboard = generateColorKeyboard()
 startKeyboard = generateStartKeyboard()
@@ -103,8 +111,7 @@ timeKeyboard = generateTimeKeyboard()
 shortTimeKeyboard = generateShortTimeKeyboard()
 preinstalledGradient4Keyboard = generatePreinstalledGradient4Keyboard()
 addToFavoritesKeyboard = InlineKeyboard(inline_keyboard=[[Ikey(text=names["addToFavorites"], callback_data='favorite')]])
-
-
+longTimesKeyboard = generateLongTimeKeyboard()
 backKeyboard = ReplyKeyboard(keyboard=[[Back()]])
 
 

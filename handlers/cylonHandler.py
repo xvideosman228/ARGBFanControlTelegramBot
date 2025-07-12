@@ -27,8 +27,3 @@ async def timePick(message: Message, state: FSMContext):
     await message.answer(names["times"][f"{time}"] + ' установлено в качестве времени для ' + (names["custom"]["cylon"]),reply_markup=customPresetsKeyboard)
     await state.set_state(StateMachine.CUSTOM_PRESETS)
     FanController.cylon(time)
-
-"""
-    "fire": "\uD83D\uDD25 огонь",
-    "ocean": "\uD83C\uDF0A океан"
-"""

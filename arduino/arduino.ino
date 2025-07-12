@@ -199,7 +199,7 @@ void loop() {
 
     for( int i = 0; i < sizeof(commands); i++)
     {
-        if( commands[i] == command)  // edit: had the wrong "=" operator before changing it.  my bad. 
+        if( commands[i] == command)  
         { 
             staticColor(colorPick(command));
         }
@@ -212,11 +212,9 @@ void loop() {
       int firstSpace = command.indexOf(' ');
       int secondSpace = command.indexOf(' ', firstSpace+1);
       
-      // получаем строки цветов без лишнего пробела между ними
       String color = command.substring(firstSpace + 1, secondSpace);
       String time = command.substring(secondSpace + 1);
 
-      // Удаляем пробельные символы вручную
       color.trim();
       time.trim();
 
@@ -238,11 +236,11 @@ void loop() {
       int firstSpace = command.indexOf(' ');
       int secondSpace = command.indexOf(' ', firstSpace+1);
       
-      // получаем строки цветов без лишнего пробела между ними
+      
       String color1 = command.substring(firstSpace + 1, secondSpace);
       String color2 = command.substring(secondSpace + 1);
 
-      // Удаляем пробельные символы вручную
+      
       color1.trim();
       color2.trim();
 
@@ -263,13 +261,13 @@ void loop() {
       int secondSpace = command.indexOf(' ', firstSpace+1);
       int thirdSpace = command.indexOf(' ', secondSpace+1);
       int fourthSpace = command.indexOf(' ', thirdSpace+1);
-      // получаем строки цветов без лишнего пробела между ними
+      
       String color1 = command.substring(firstSpace + 1, secondSpace);
       String color2 = command.substring(secondSpace + 1, thirdSpace);
       String color3 = command.substring(thirdSpace + 1, fourthSpace);
       String color4 = command.substring(fourthSpace + 1);
 
-      // Удаляем пробельные символы вручную
+      
       color1.trim();
       color2.trim();
       color3.trim();
@@ -292,11 +290,11 @@ void loop() {
       int firstSpace = command.indexOf(' ');
       int secondSpace = command.indexOf(' ', firstSpace+1);
       
-      // получаем строки цветов без лишнего пробела между ними
+      
       String color1 = command.substring(firstSpace + 1, secondSpace);
       String color2 = command.substring(secondSpace + 1);
 
-      // Удаляем пробельные символы вручную
+      
       color1.trim();
       color2.trim();
 
@@ -311,8 +309,6 @@ void loop() {
       }
       }
 
-    /*fill_gradient_RGB(leds, NUM, CRGB::Red, CRGB::Black);
-        FastLED.show();*/
       else if(cmd == "COLORWIPE")
       {
           // находим позиции первых двух пробелов
@@ -320,12 +316,12 @@ void loop() {
           int secondSpace = command.indexOf(' ', firstSpace+1);
           int thirdSpace = command.indexOf(' ', secondSpace+1);
 
-          // получаем строки цветов без лишнего пробела между ними
+          
           String color1 = command.substring(firstSpace + 1, secondSpace);
           String color2 = command.substring(secondSpace + 1, thirdSpace);
           String time = command.substring(thirdSpace + 1);
 
-          // Удаляем пробельные символы вручную
+          
           color1.trim();
           color2.trim();
           time.trim();
@@ -334,7 +330,7 @@ void loop() {
           CRGB c2 = colorPick(color2);
           int timer = times(time);
 
-          Serial.println("COLORWIPE " + color1 + " " + color2 + " " + time);   // добавьте пробел между цветами для ясности вывода
+          Serial.println("COLORWIPE " + color1 + " " + color2 + " " + time);   
 
           while(true) {
               Serial.println(c1.r);
@@ -377,10 +373,10 @@ void loop() {
       Serial.println("CYLON");
       int firstSpace = command.indexOf(' ');
       
-      // получаем строки цветов без лишнего пробела между ними
+      
       String time = command.substring(firstSpace + 1);
 
-      // Удаляем пробельные символы вручную
+      
       time.trim();
 
       while(true) 

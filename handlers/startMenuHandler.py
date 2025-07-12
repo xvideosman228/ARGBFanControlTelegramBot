@@ -111,20 +111,3 @@ async def default(message: Message, state: FSMContext):
     else:
         await state.set_state(StateMachine.START)
         await message.answer(texts['iDidNotFuckingUnderstandYouStupidMoron'], reply_markup=startKeyboard)
-
-"""
-Генератор кода для цветов
-@exception
-@startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["colors"]["basicColors"]["red"])
-async def red(message: Message):
-    logger.info("Кнопка red нажата")
-    await message.answer(texts["red"])
-    for x in names["colors"]["basicColors"].keys():
-        print(f"
-@exception
-@startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["colors"]["basicColors"]["{x}"])
-async def {x}(message: Message):
-    logger.info("Кнопка {x.capitalize()} нажата")
-    await message.answer(texts["{x}"])")
-
-"""

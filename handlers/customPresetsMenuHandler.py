@@ -10,7 +10,7 @@ from handlers.gradient4Handler import gradient4Router
 from handlers.gradientHandler import gradientRouter
 from handlers.smoothGradientHandler import smoothGradientRouter
 from keyboard import customPresetsKeyboard, colorKeyboard, timeKeyboard, preinstalledGradient4Keyboard, \
-    generatePreinstalledGradient4Keyboard
+    generatePreinstalledGradient4Keyboard, longTimesKeyboard
 from serialControl import FanController
 from stateMachine import StateMachine
 from config.loggingConfig import exception, logger
@@ -92,7 +92,7 @@ async def smoothGradient(message: Message, state: FSMContext):
 async def cylon(message: Message, state: FSMContext):
     logger.info("Кнопка Cylon нажата")
     await state.set_state(StateMachine.CYLON)
-    await message.answer(texts["cylon"], reply_markup=timeKeyboard)
+    await message.answer(texts["cylon"], reply_markup=longTimesKeyboard)
 
 @exception
 @customPresetsMenuRouter.message(StateFilter(StateMachine.CUSTOM_PRESETS), F.text == names["custom"]["pacific"])
