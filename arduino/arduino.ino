@@ -183,198 +183,41 @@ void loop() {
     String command = Serial.readStringUntil('\\n');
     Serial.println(command);
     String cmd = command.substring(0, command.indexOf(' '));
-    if(command == "RED") 
-    {          
-      while(true) {     
-        Serial.println("RED");            
-        staticColor(CRGB::Red);
-        //fill_gradient_RGB_4(leds, NUM, CRGB::Red, CRGB::White, CRGB::Red, CRGB::White);
-        if(Serial.available()) {   
-          break;                   
+
+    String commands[17] = {
+    "RED",
+    "GREEN",
+    "BLUE",
+
+    "YELLOW",
+    "YELLOWGREEN",
+    "OLIVE",
+
+    "YELLOWORANGE",
+    "ORANGE",
+    "ORANGERED",
+
+    "LIGHTBLUE",
+    "SKYBLUE",
+    "DARKBLUE",
+
+    "VIOLET",
+    "WHITE",
+    "GRAY",
+
+    "BLACK",
+    "PINK"};
+
+    for( int i = 0; i < sizeof(commands); i++)
+    {
+        if( commands[i] == command)  // edit: had the wrong "=" operator before changing it.  my bad. 
+        { 
+            staticColor(colorPick(command));
         }
-      }
     }
 
-    else if(command == "GREEN") 
-    {          
-      while(true) {     
-        Serial.println("GREEN");            
-        staticColor(CRGB::Green);
-        if(Serial.available()) {   
-          break;                   
-        }
-      }
-    }
-  
-    else if(command == "BLUE") 
-    {          
-      while(true) {     
-        Serial.println("BLUE");            
-        staticColor(CRGB::Blue);
-        if(Serial.available()) {   
-          break;                   
-        }
-      }
-    }
-
-    else if(command == "YELLOW") 
-    {          
-      while(true) {     
-        Serial.println("YELLOW");                 
-        staticColor(CRGB::Yellow);
-        if(Serial.available()) {   
-          break;                   
-        }
-      }
-    }
-
-    else if(command == "YELLOWGREEN") 
-    {          
-      while(true) {     
-        Serial.println("YELLOWGREEN");                 
-        staticColor(CRGB::LawnGreen);
-        if(Serial.available()) {   
-          break;                   
-        }
-      }
-    }
-
-    else if(command == "OLIVE") 
-    {          
-      while(true) {     
-        Serial.println("OLIVE");            
-        staticColor(CRGB(0x52, 0x52, 0x00));
-        if(Serial.available()) {   
-          break;                   
-        }
-      }
-    }
-
-    else if(command == "YELLOWORANGE") 
-    {          
-      while(true) {     
-        Serial.println("YELLOWORANGE");                 
-        staticColor(CRGB::Gold);
-        if(Serial.available()) {   
-          break;                   
-        }
-      }
-    }
-
-    else if(command == "ORANGE") 
-    {          
-      while(true) {     
-        Serial.println("ORANGE");                 
-        staticColor(CRGB::DarkOrange);
-        if(Serial.available()) {   
-          break;                   
-        }
-      }
-    }
-
-    else if(command == "ORANGERED") 
-    {          
-      while(true) {     
-        Serial.println("ORANGERED");            
-        staticColor(CRGB::OrangeRed);  
-        if(Serial.available()) {   
-          break;                   
-        }
-      }
-    }
-
-    else if(command == "LIGHTBLUE") 
-    {          
-      while(true) {     
-        Serial.println("LIGHT BLUE");    
-        staticColor(CRGB(0x00, 0xA5, 0xA7 ));        
-        
-        if(Serial.available()) {   
-          break;                   
-        }
-      }
-    }
-
-
-    else if(command == "SKYBLUE") 
-    {          
-      while(true) {     
-        Serial.println("SKY BLUE");
-        staticColor(CRGB::DodgerBlue); 
-        if(Serial.available()) {   
-          break;                   
-        }
-      }
-    }
-
-
-    else if(command == "DARKBLUE") 
-    {          
-      while(true) {     
-        Serial.println("DARKBLUE");  
-        staticColor(CRGB::MidnightBlue);         
-        if(Serial.available()) {   
-          break;                   
-        }
-      }
-    }
-
-    else if(command == "VIOLET") 
-    {          
-      while(true) {     
-        Serial.println("VIOLET");  
-        staticColor(CRGB::Purple);         
-        if(Serial.available()) {   
-          break;                   
-        }
-      }
-    }
-
-    else if(command == "WHITE") 
-    {          
-      while(true) {     
-        Serial.println("WHITE");  
-        staticColor(CRGB::Snow);         
-        if(Serial.available()) {   
-          break;                   
-        }
-      }
-    }
-
-    else if(command == "GRAY") 
-    {          
-      while(true) {     
-        Serial.println("GRAY");  
-        staticColor(CRGB(0x7f, 0x7f, 0x7f));         
-        if(Serial.available()) {   
-          break;                   
-        }
-      }
-    }
-
-    else if(command == "BLACK") 
-    {          
-      while(true) {     
-        Serial.println("BALCK");  
-        staticColor(CRGB::Black);         
-        if(Serial.available()) {   
-          break;                   
-        }
-      }
-    }
-
-    else if(command == "PINK") 
-    {          
-      while(true) {     
-        Serial.println("PINK");  
-        staticColor(CRGB::Crimson);         
-        if(Serial.available()) {   
-          break;                   
-        }
-      }
-    }
-
-    else if(cmd == "FADEINOUT") 
+    
+    if(cmd == "FADEINOUT") 
     {          
       Serial.println("FADE IN & OUT");
       int firstSpace = command.indexOf(' ');
