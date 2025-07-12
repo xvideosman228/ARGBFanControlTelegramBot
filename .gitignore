@@ -1,4 +1,4 @@
 # ignore all logs
 log/*
 config/.env
-config/whitelist
+config/whitelist.json

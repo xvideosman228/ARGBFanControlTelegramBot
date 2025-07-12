@@ -17,9 +17,8 @@ with open('./config/buttons.json') as file:
 with open('./config/texts.json') as file:
     texts = json.load(file)
 
-with open('./config/whitelist') as file:
-    whitelist = file.readlines()
-    whitelist = [x.replace('\n','') for x in whitelist]
+with open('./config/whitelist.json') as file:
+    whitelist = json.load(file)
 
 
 startMenuRouter = Router()
@@ -52,56 +51,6 @@ async def about(message: Message, state: FSMContext):
     await state.set_state(StateMachine.ABOUT)
     await message.answer(texts["about"], reply_markup=backKeyboard)
 
-"""
-@exception
-@startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["startButtons"]["strength+"])
-async def strengthplus(message: Message):
-    logger.info("Кнопка Strength + нажата")
-    await message.answer(texts["strength+"])
-
-@exception
-@startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["startButtons"]["strength-"])
-async def strengthminus(message: Message):
-    logger.info("Кнопка Strength - нажата")
-    await message.answer(texts["strength-"])
-
-
-
-
-@exception
-@startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["startButtons"]["mode+"])
-async def modeplus(message: Message):
-    logger.info("Кнопка Mode + нажата")
-    await message.answer(texts["mode+"])
-
-@exception
-@startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["startButtons"]["mode-"])
-async def modeminus(message: Message):
-    logger.info("Кнопка Mode - нажата")
-    await message.answer(texts["mode-"])
-
-
-
-
-
-
-
-
-
-@exception
-@startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["startButtons"]["strength++"])
-async def strengthplusplus(message: Message):
-    logger.info("Кнопка Strength ++ нажата")
-    await message.answer(texts["strength++"])
-
-@exception
-@startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["startButtons"]["strength--"])
-async def strengthminusminus(message: Message):
-    logger.info("Кнопка Strength -- нажата")
-    await message.answer(texts["strength--"])
-
-
-"""
 
 @exception
 @startMenuRouter.message(StateFilter(StateMachine.START), F.text == names["startButtons"]["brightness+"])

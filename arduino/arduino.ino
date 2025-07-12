@@ -125,7 +125,7 @@ CRGB colorPick(const String color)
   else if(color == "YELLOWORANGE"){return CRGB::Gold;}
   else if(color == "YELLOWGREEN"){return CRGB::LawnGreen;}
   else if(color == "ORANGERED"){return CRGB::OrangeRed;}
-
+  else if(color == "OLIVE"){return CRGB(0x52, 0x52, 0x00);}
   else if(color == "LIGHTBLUE"){return CRGB::DodgerBlue;}
   else if(color == "DARKBLUE"){return CRGB::MidnightBlue;}
   else if(color == "VIOLET"){return CRGB::Purple;}
